@@ -1085,7 +1085,65 @@ function saveAsPDF() {
 }
 
 // THE NEW SHEET SYNC ENGINE
+async function // THE UPDATED SHEET SYNC ENGINE
 async function syncToGoogleSheet() {
+    const webhookUrl = document.getElementById('webhookUrl').value.trim();
+    const btn = document.getElementById('btnSync');
+    
+    // Gather the saved drafts from the browser's memory
+    let drafts = JSON.parse(localStorage.getItem('mcn_eval_drafts')) || {};
+
+    // Check if there is actually anything saved
+    if (Object.keys(drafts).length === 0) {
+        alert("Your draft memory is empty! Evaluate and save some applicants first.");
+        return;
+    }
+
+    // Check if the tunnel link is pasted
+    if (!webhookUrl) {
+        alert("Please paste your Google Apps Script Web App URL first.");
+        return;
+    }
+
+    // Give a loading animation so you know it is working
+    btn.innerText = "⏳ Syncing... Please wait";
+    btn.style.opacity = "0.7";
+
+    try {
+        // We use 'no-cors' here to safely bypass Google's strict security walls. 
+        // It drops the data off securely without getting blocked.
+        await fetch(webhookUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(drafts)
+        });
+
+        // We celebrate and clear the memory
+        btn.innerText = "✅ Successfully Pushed!";
+        btn.classList.add('btn-reward-anim');
+        
+        // Wipes the local drafts so you do not push the same ones twice
+        localStorage.removeItem('mcn_eval_drafts');
+        
+        setTimeout(() => {
+            btn.innerText = "🚀 Push to Sheet";
+            btn.style.opacity = "1";
+            btn.classList.remove('btn-reward-anim');
+        }, 4000);
+
+    } catch (error) {
+        // If the internet drops or the link is bad
+        btn.innerText = "❌ Sync Failed. Try Again.";
+        btn.style.background = "linear-gradient(135deg, var(--danger-red), #b91c1c)";
+        
+        setTimeout(() => {
+            btn.innerText = "🚀 Push to Sheet";
+            btn.style.background = "linear-gradient(135deg, var(--mcn-blue-brand), #5b21b6)";
+            btn.style.opacity = "1";
+        }, 4000);
+    }
+} {
     const webhookUrl = document.getElementById('webhookUrl').value.trim();
     const btn = document.getElementById('btnSync');
     
@@ -1150,4 +1208,5 @@ async function syncToGoogleSheet() {
 </script>
 
 </body>
+
 </html>
