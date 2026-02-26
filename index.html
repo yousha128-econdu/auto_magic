@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>GAC Reviewer Toolkit</title>
+    <meta charset="UTF-8">
+    <title>GAC Reviewer Toolkit - Premium</title>
     
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 
-    <link rel="icon" type="image/png" href="favicon.png?v=5.0">
-    <link rel="shortcut icon" type="image/png" href="favicon.png?v=5.0">
+    <link rel="icon" type="image/png" href="favicon.png?v=6.0">
+    <link rel="shortcut icon" type="image/png" href="favicon.png?v=6.0">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -18,620 +19,487 @@
     
     <style>
         /* =========================================
-           DYNAMIC THEME VARIABLES (SMOOTH UI)
+           ULTRA-PREMIUM THEME ARCHITECTURE
            ========================================= */
         :root {
-            --mcn-navy-brand: #0A2342;
-            --mcn-blue-brand: #0056b3;
-            --quillbot-green: #49c35a;      
-            --quillbot-green-hover: #3da34a; 
-            --success-green-brand: #059669;
-            --joyful-orange-brand: #f59e0b;
-            --danger-red: #ef4444;
+            /* Light Theme (Clean, Minimal, Apple-like) */
+            --bg-body: #F4F4F5;
+            --bg-surface: #FFFFFF;
+            --bg-surface-alt: #FAFAFA;
+            --bg-input: #F4F4F5;
+            
+            --border-light: #E4E4E7;
+            --border-focus: #3B82F6;
+            
+            --text-main: #18181B;
+            --text-muted: #71717A;
+            --text-heading: #09090B;
+            
+            --brand-primary: #0056b3;
+            --brand-gradient: linear-gradient(135deg, #0056b3, #2563EB);
+            
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --quillbot: #49C35A;
+            
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.03);
+            --shadow-drawer: -10px 0 30px rgba(0,0,0,0.08);
+            --shadow-drawer-left: 10px 0 30px rgba(0,0,0,0.08);
 
-            /* LIGHT THEME (Default) */
-            --header-bg-start: #0A2342;
-            --header-bg-end: #003b82;
-            
-            --white: #ffffff;
-            --text-dark: #0f172a;
-            --text-muted: #475569;
-            --heading-color: #0A2342;
-            --accent-blue: #0056b3;
-            --border-light: #e2e8f0;
-            
-            --input-bg: #f8fafc;
-            --card-header-bg: #f8fafc;
-            --glass-bg: rgba(255, 255, 255, 0.95);
-            --badge-bg: #f0f9ff;
-            
-            --rule-bg: #f8fafc;
-            --table-th-bg: #fef3c7;
-            --table-th-text: #92400e;
-            --table-footer-bg: #fffbeb;
-            --disclaimer-bg: rgba(254, 243, 199, 0.6);
-            
-            --val-high-bg: #f0fdf4; --val-high-text: #064e3b;
-            --val-mid-bg: #fffbeb;  --val-mid-text: #78350f;
-            --val-low-bg: #fef2f2;  --val-low-text: #7f1d1d;
-            --val-done-bg: #f0f9ff;
-            
-            --link-hover-bg: #f0f9ff;
-
-            --shadow-soft: 0 8px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
-            --shadow-float: 0 25px 50px -12px rgba(0, 86, 179, 0.15), 0 10px 20px -5px rgba(0, 0, 0, 0.05);
-            --drawer-shadow: -15px 0 40px rgba(0, 0, 0, 0.12);
-            --drawer-shadow-left: 15px 0 40px rgba(0, 0, 0, 0.12);
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
         }
 
-        /* DARK THEME OVERRIDES */
         [data-theme="dark"] {
-            --header-bg-start: #0f172a;
-            --header-bg-end: #1e293b;
+            /* Dark Theme (Deep, Sleek, Vercel/Linear-inspired) */
+            --bg-body: #09090B;
+            --bg-surface: #121214;
+            --bg-surface-alt: #18181B;
+            --bg-input: #09090B;
             
-            --white: #1e293b;
-            --text-dark: #f8fafc;
-            --text-muted: #cbd5e1;
-            --heading-color: #bae6fd;
-            --accent-blue: #38bdf8;
-            --border-light: #334155;
+            --border-light: #27272A;
+            --border-focus: #38BDF8;
             
-            --input-bg: #0f172a;
-            --card-header-bg: #0f172a;
-            --glass-bg: rgba(30, 41, 59, 0.95);
-            --badge-bg: #0f172a;
+            --text-main: #E4E4E7;
+            --text-muted: #A1A1AA;
+            --text-heading: #FAFAFA;
             
-            --rule-bg: #0f172a;
-            --table-th-bg: #451a03;
-            --table-th-text: #fde68a;
-            --table-footer-bg: #291505;
-            --disclaimer-bg: rgba(69, 26, 3, 0.4);
+            --brand-primary: #38BDF8;
+            --brand-gradient: linear-gradient(135deg, #38BDF8, #0284C7);
             
-            --val-high-bg: #064e3b; --val-high-text: #a7f3d0;
-            --val-mid-bg: #78350f;  --val-mid-text: #fde68a;
-            --val-low-bg: #7f1d1d;  --val-low-text: #fecaca;
-            --val-done-bg: #082f49;
-            
-            --link-hover-bg: #0f172a;
-
-            --shadow-soft: 0 8px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
-            --shadow-float: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 10px 20px -5px rgba(0, 0, 0, 0.5);
-            --drawer-shadow: -15px 0 40px rgba(0, 0, 0, 0.6);
-            --drawer-shadow-left: 15px 0 40px rgba(0, 0, 0, 0.6);
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4);
+            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.5);
+            --shadow-drawer: -10px 0 30px rgba(0,0,0,0.8);
+            --shadow-drawer-left: 10px 0 30px rgba(0,0,0,0.8);
         }
 
-        /* GLOBALS & ANIMATED BACKGROUND */
+        /* GLOBALS */
         body {
             font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-            background: linear-gradient(-45deg, #e2e8f0, #f8fafc, #bae6fd, #e0f2fe);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            margin: 0; padding: 50px 20px;
-            color: var(--text-dark); min-height: 100vh; position: relative; overflow-x: hidden;
-            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
-            letter-spacing: 0.5px; word-spacing: 2.5px; line-height: 1.8;
-            transition: color 0.4s ease;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0; 
+            padding: 50px 20px;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            letter-spacing: 0.2px;
+            line-height: 1.7;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
 
-        [data-theme="dark"] body {
-            background: linear-gradient(-45deg, #020617, #0f172a, #1e293b, #082f49);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-        }
+        * { box-sizing: border-box; }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .container, .header, .setup-grid, .impact-card, .card-header, .card-body, .eval-board, .eval-row, 
-        input, select, textarea, .rubric-panel, .ai-panel, .auth-suite, .about-developer, .rubric-rule, 
-        .ai-table th, .ai-table td, .progress-sticky {
-            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        /* THE CIRCULAR THEME TOGGLE BUTTON */
+        /* THEME TOGGLE */
         .theme-toggle {
             position: fixed; top: 30px; right: 30px;
-            width: 52px; height: 52px; padding: 0;
-            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);
-            border: 2px solid #bae6fd; color: var(--mcn-navy-brand);
+            width: 48px; height: 48px; padding: 0;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light); 
+            color: var(--text-main);
             border-radius: 50%; cursor: pointer;
-            font-size: 22px; z-index: 1000;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); 
+            font-size: 20px; z-index: 1000;
             display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
         }
-        .theme-toggle:hover { background: #ffffff; transform: scale(1.1) rotate(15deg); box-shadow: 0 8px 25px rgba(56, 189, 248, 0.5); border-color: #38bdf8; }
-        [data-theme="dark"] .theme-toggle { background: rgba(15, 23, 42, 0.9); border-color: rgba(56, 189, 248, 0.3); color: #f8fafc; }
-        [data-theme="dark"] .theme-toggle:hover { background: #1e293b; transform: scale(1.1) rotate(-15deg); }
+        .theme-toggle:hover { transform: scale(1.1) rotate(15deg); border-color: var(--brand-primary); }
+        [data-theme="dark"] .theme-toggle:hover { transform: scale(1.1) rotate(-15deg); }
 
-        /* LAYOUT & CARDS */
-        .container { max-width: 1050px; margin: 0 auto; background: var(--white); border-radius: 32px; box-shadow: var(--shadow-float); overflow: visible; border: 1px solid var(--border-light); }
+        /* MAIN CONTAINER */
+        .container { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            background: var(--bg-surface); 
+            border-radius: var(--radius-xl); 
+            box-shadow: var(--shadow-lg); 
+            border: 1px solid var(--border-light); 
+            overflow: hidden; 
+            transition: background-color 0.4s ease, border-color 0.4s ease;
+        }
         
-        .header { background: linear-gradient(135deg, var(--header-bg-start) 0%, var(--header-bg-end) 100%); padding: 55px 20px; text-align: center; color: #ffffff; border-bottom: 6px solid #38bdf8; border-radius: 32px 32px 0 0; position: relative; overflow: hidden; }
-        .header::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(56,189,248,0.15) 0%, transparent 60%); pointer-events: none; }
-        .logo-container { background: #ffffff; padding: 22px 45px; display: inline-block; border-radius: 24px; box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.3); margin-bottom: 25px; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 2; border: 3px solid transparent; background-clip: padding-box; }
-        .logo-container:hover { transform: translateY(-5px) scale(1.03); border-color: #e0f2fe; box-shadow: 0 20px 40px -5px rgba(56, 189, 248, 0.4); }
-        .logo-img { max-width: 250px; height: auto; display: block; }
-        .header h1 { margin: 0; font-size: 42px; font-weight: 800; letter-spacing: -0.5px; position: relative; z-index: 2; word-spacing: 3px; color: #ffffff; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-        .header p { margin: 12px 0 0; opacity: 0.95; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; font-size: 14px; color: #bae6fd; position: relative; z-index: 2; word-spacing: 3px; }
+        /* HEADER SECTION */
+        .header { 
+            background: var(--bg-surface-alt); 
+            padding: 50px 40px; 
+            text-align: center; 
+            border-bottom: 1px solid var(--border-light); 
+        }
+        .logo-wrapper {
+            background: #ffffff; 
+            padding: 10px; 
+            border-radius: 8px; 
+            display: inline-block; 
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-sm);
+        }
+        .logo-img { max-width: 200px; display: block; }
+        .header h1 { 
+            margin: 0; font-size: 34px; font-weight: 800; 
+            color: var(--text-heading); letter-spacing: -0.5px; 
+        }
+        .header p { 
+            margin: 10px 0 0; font-weight: 700; text-transform: uppercase; 
+            letter-spacing: 2px; font-size: 12px; color: var(--text-muted); 
+        }
 
-        .setup-grid { padding: 45px 50px; background: var(--white); display: grid; grid-template-columns: 1fr 130px 110px 160px; gap: 20px; align-items: flex-end; border-bottom: 1px solid var(--border-light); }
-        .field-group label { display: block; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; word-spacing: 3px; margin-bottom: 12px; color: var(--accent-blue); }
-        input, select { width: 100%; padding: 18px 20px; border: 2px solid var(--border-light); border-radius: 16px; font-size: 16px; background: var(--input-bg); box-sizing: border-box; color: var(--text-dark); font-weight: 600; font-family: inherit; letter-spacing: 0.5px; word-spacing: 2px; }
-        input:focus, select:focus { border-color: #38bdf8; outline: none; background: var(--white); box-shadow: 0 0 0 5px rgba(56, 189, 248, 0.2); transform: translateY(-2px); }
+        /* FETCH CONTROLS */
+        .setup-grid { 
+            padding: 35px 40px; 
+            background: var(--bg-surface); 
+            display: grid; 
+            grid-template-columns: 1fr 120px 140px 140px; 
+            gap: 15px; 
+            align-items: flex-end; 
+            border-bottom: 1px solid var(--border-light); 
+        }
+        .field-group label { 
+            display: block; font-size: 12px; font-weight: 800; 
+            text-transform: uppercase; letter-spacing: 1px; 
+            margin-bottom: 8px; color: var(--text-muted); 
+        }
+        input, select { 
+            width: 100%; padding: 15px 18px; 
+            border: 1px solid var(--border-light); 
+            border-radius: var(--radius-md); font-size: 15px; 
+            background: var(--bg-input); color: var(--text-main); 
+            font-weight: 600; font-family: inherit; transition: all 0.2s; 
+        }
+        input:focus, select:focus { 
+            border-color: var(--border-focus); outline: none; 
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); 
+        }
 
-        .btn-primary { background: linear-gradient(135deg, var(--mcn-blue-brand), #3b82f6); color: #ffffff; border: none; padding: 18px; border-radius: 16px; font-weight: 800; font-size: 15px; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1.5px; word-spacing: 3px; width: 100%; box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4); font-family: inherit; position: relative; overflow: hidden; }
-        .btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 30px -5px rgba(37, 99, 235, 0.6); }
+        /* BUTTONS */
+        .btn-primary { 
+            background: var(--text-heading); color: var(--bg-surface); 
+            border: none; padding: 15px; border-radius: var(--radius-md); 
+            font-weight: 800; font-size: 14px; cursor: pointer; 
+            transition: all 0.2s ease; text-transform: uppercase; letter-spacing: 1px; 
+            width: 100%; font-family: inherit; 
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); opacity: 0.9; }
 
-        .btn-download-draft { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #ffffff; border: none; padding: 18px; border-radius: 16px; font-weight: 800; font-size: 15px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); text-transform: uppercase; letter-spacing: 1.5px; word-spacing: 3px; width: 100%; box-shadow: 0 10px 20px -5px rgba(139, 92, 246, 0.4); font-family: inherit; }
-        .btn-download-draft:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 30px -5px rgba(139, 92, 246, 0.6); }
+        .btn-download-draft { 
+            background: var(--bg-surface-alt); color: var(--text-main); 
+            border: 1px solid var(--border-light); padding: 15px; 
+            border-radius: var(--radius-md); font-weight: 800; font-size: 14px; 
+            cursor: pointer; transition: all 0.2s; text-transform: uppercase; 
+            letter-spacing: 1px; width: 100%; font-family: inherit; 
+        }
+        .btn-download-draft:hover { border-color: var(--text-muted); transform: translateY(-2px); }
 
-        #displayArea { padding: 50px; }
+        /* CONTENT DISPLAY AREA */
+        #displayArea { padding: 40px; }
+        
+        .animated-entry { animation: gentleFadeIn 0.5s ease forwards; }
+        @keyframes gentleFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes gentleFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .animated-entry { animation: gentleFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-
-        /* BEAUTIFUL SHEET CONNECTION BADGE */
+        /* REAL SHEET TITLE BADGE */
         .sheet-status-badge {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
-            border: 2px solid var(--success-green-brand);
-            color: var(--success-green-brand);
-            padding: 12px 25px;
+            display: inline-flex; align-items: center; gap: 10px;
+            background: var(--bg-surface-alt);
+            border: 1px solid var(--border-light);
+            padding: 8px 16px;
             border-radius: 50px;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 800;
-            margin-bottom: 30px;
-            font-size: 14px;
-            letter-spacing: 1px;
-            box-shadow: 0 8px 15px -3px rgba(16, 185, 129, 0.2);
-            text-transform: uppercase;
+            font-weight: 700; font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-sm);
         }
         .live-dot {
-            width: 12px; height: 12px;
-            background: var(--success-green-brand);
+            width: 10px; height: 10px;
+            background: var(--success);
             border-radius: 50%;
-            animation: pulse-dot 1.5s infinite;
-            box-shadow: 0 0 8px var(--success-green-brand);
+            box-shadow: 0 0 8px var(--success);
+            animation: pulse-dot 2s infinite;
         }
-        @keyframes pulse-dot { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
-
-        .onboarding-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 45px; text-align: left; }
-        .onboard-card { background: var(--white); padding: 40px; border-radius: 24px; border: 1px solid var(--border-light); box-shadow: var(--shadow-soft); transition: all 0.3s ease; position: relative; overflow: hidden; }
-        .onboard-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--mcn-blue-brand), #38bdf8); opacity: 0; transition: 0.3s; }
-        .onboard-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-float); }
-        .onboard-card:hover::before { opacity: 1; }
-        .onboard-card h4 { margin: 0 0 20px 0; color: var(--heading-color); font-size: 22px; font-weight: 800; display: flex; align-items: center; gap: 12px; letter-spacing: 0.2px; word-spacing: 1.5px; }
-        .onboard-card ul, .onboard-card ol { margin: 0; padding-left: 22px; color: var(--text-muted); font-size: 15px; line-height: 1.85; letter-spacing: 0.4px; word-spacing: 1.5px; }
-        .onboard-card li { margin-bottom: 15px; }
-        .onboard-card li strong { color: var(--text-dark); font-weight: 700; word-spacing: 3px; }
+        @keyframes pulse-dot { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
+        .sheet-title-text { color: var(--text-heading); }
 
         /* PREMIUM IMPACT CARDS */
-        .impact-card { background: var(--white); border-radius: 24px; margin-bottom: 35px; border: 1px solid var(--border-light); border-top: 6px solid var(--accent-blue); box-shadow: var(--shadow-soft); overflow: hidden; }
-        .impact-card:hover { box-shadow: var(--shadow-float); transform: translateY(-5px) scale(1.01); border-color: var(--accent-blue); }
+        .impact-card { 
+            background: var(--bg-surface); 
+            border: 1px solid var(--border-light); 
+            border-radius: var(--radius-lg); 
+            margin-bottom: 25px; 
+            box-shadow: var(--shadow-sm); 
+            transition: all 0.3s ease; 
+        }
+        .impact-card:hover { border-color: var(--text-muted); box-shadow: var(--shadow-md); }
         
-        .card-header { background: var(--card-header-bg); padding: 25px 35px; border-bottom: 1px solid var(--border-light); border-left: 5px solid var(--accent-blue); }
-        .card-body { padding: 30px 35px; background: var(--white); border-left: 5px solid transparent; }
-        .impact-card:hover .card-body { border-left-color: var(--success-green-brand); }
+        .card-header { 
+            background: var(--bg-surface-alt); 
+            padding: 18px 25px; 
+            border-bottom: 1px solid var(--border-light); 
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+        .card-body { padding: 25px; }
 
-        .card-label { font-size: 17.5px; font-weight: 800; color: var(--heading-color); line-height: 1.7; margin: 0; letter-spacing: 0.5px; word-spacing: 3px; }
-        .card-label::before { content: '📌 APPLICATION QUESTION'; display: block; font-size: 12px; font-weight: 800; color: var(--accent-blue); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 12px; opacity: 0.9; word-spacing: 3px; }
+        .card-label { 
+            font-size: 15px; font-weight: 700; color: var(--text-heading); 
+            margin: 0; line-height: 1.6; 
+        }
+        .card-label::before { 
+            content: 'QUESTION'; display: block; font-size: 10px; 
+            font-weight: 800; color: var(--text-muted); 
+            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; 
+        }
         
-        .card-value { font-size: 17px; line-height: 2.1; color: var(--text-dark); white-space: pre-wrap; font-weight: 500; letter-spacing: 0.6px; word-spacing: 4px; padding: 0 10px; position: relative; }
-        .card-value::before { content: '📝 APPLICANT RESPONSE'; display: block; font-size: 12px; font-weight: 800; color: var(--success-green-brand); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px; opacity: 0.9; word-spacing: 3px; }
+        .card-value { 
+            font-size: 16px; line-height: 1.9; color: var(--text-main); 
+            white-space: pre-wrap; font-weight: 400; 
+        }
+        .card-value a { 
+            color: var(--brand-primary); text-decoration: none; 
+            font-weight: 600; transition: 0.2s; 
+        }
+        .card-value a:hover { text-decoration: underline; }
 
-        .card-value a { color: var(--accent-blue); text-decoration: none; font-weight: 700; border-bottom: 2px solid #bae6fd; padding-bottom: 2px; letter-spacing: 0.5px; word-spacing: normal; transition: 0.2s; }
-        .card-value a:hover { color: var(--heading-color); border-bottom-color: var(--heading-color); background: var(--link-hover-bg); }
+        /* QUILLBOT COMPONENT */
+        .auth-suite { 
+            background: var(--bg-surface-alt); border: 1px solid var(--border-light); 
+            border-left: 4px solid var(--quillbot); padding: 25px 35px; 
+            border-radius: var(--radius-lg); margin: 10px 40px 40px 40px; 
+            display: flex; align-items: center; justify-content: space-between; 
+            display: none; 
+        }
+        .auth-text h3 { margin: 0 0 5px 0; color: var(--text-heading); font-size: 18px; font-weight: 800; }
+        .auth-text p { margin: 0; color: var(--text-muted); font-size: 14px; }
+        .btn-auth { 
+            background: var(--quillbot); color: #ffffff; border: none; 
+            padding: 12px 24px; border-radius: var(--radius-md); font-weight: 700; 
+            font-size: 13px; cursor: pointer; transition: 0.2s; text-transform: uppercase; 
+        }
+        .btn-auth:hover { background: var(--quillbot-green-hover); }
 
-        /* OFFICIAL QUILLBOT GREEN UI COMPONENT */
-        .auth-suite { background: linear-gradient(135deg, var(--input-bg), var(--white)); border: 1px solid var(--border-light); border-left: 6px solid var(--quillbot-green); padding: 35px 40px; border-radius: 24px; margin: 10px 50px 40px 50px; display: flex; align-items: center; justify-content: space-between; box-shadow: var(--shadow-soft); display: none; }
-        .auth-text h3 { margin: 0 0 8px 0; color: var(--quillbot-green); font-size: 24px; font-weight: 800; letter-spacing: -0.2px; word-spacing: 1.5px; }
-        .auth-text p { margin: 0; color: var(--text-muted); font-size: 15px; font-weight: 500; letter-spacing: 0.3px; word-spacing: 1.5px; }
-        .btn-auth { background: linear-gradient(135deg, var(--quillbot-green), var(--quillbot-green-hover)); color: #ffffff; border: none; padding: 18px 30px; border-radius: 16px; font-weight: 800; font-size: 15px; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1.5px; word-spacing: 3px; box-shadow: 0 10px 20px -5px rgba(73, 195, 90, 0.4); font-family: inherit; }
-        .btn-auth:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 30px -5px rgba(73, 195, 90, 0.6); }
+        /* NAVIGATION BUTTONS */
+        .nav-buttons { 
+            display: flex; justify-content: space-between; 
+            margin: 0 40px 40px 40px; padding-top: 30px; 
+            border-top: 1px solid var(--border-light); display: none; 
+        }
+        .nav-btn { 
+            background: var(--bg-surface); color: var(--text-heading); 
+            border: 1px solid var(--border-light); padding: 14px 30px; 
+            border-radius: var(--radius-md); font-weight: 700; cursor: pointer; 
+            transition: all 0.2s; width: 48%; text-transform: uppercase; 
+            font-size: 13px; letter-spacing: 1px; 
+        }
+        .nav-btn:hover { border-color: var(--text-heading); }
 
-        .nav-buttons { display: flex; justify-content: space-between; margin: 0 50px 40px 50px; padding-top: 35px; border-top: 2px dashed var(--border-light); display: none; }
-        .nav-btn { background: var(--white); color: var(--text-dark); border: 2px solid var(--border-light); padding: 18px 40px; border-radius: 16px; font-weight: 800; cursor: pointer; transition: all 0.3s ease; width: 48%; text-transform: uppercase; letter-spacing: 2px; word-spacing: 3px; box-shadow: var(--shadow-soft); font-family: inherit; font-size: 15px; }
-        .nav-btn:hover { border-color: var(--accent-blue); background: var(--badge-bg); color: var(--accent-blue); transform: translateY(-3px); box-shadow: var(--shadow-float); }
-
-        /* THE EVALUATION BOARD */
-        .eval-board { background: var(--white); padding: 0 50px 50px 50px; border-radius: 32px; margin: 0 50px 50px 50px; display: none; border: 1px solid var(--border-light); box-shadow: var(--shadow-soft); position: relative; overflow: hidden; }
+        /* EVALUATION BOARD */
+        .eval-board { 
+            padding: 0 40px 50px 40px; margin: 0; display: none; 
+        }
         
-        .progress-sticky { position: sticky; top: 0; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px); padding: 25px 0; z-index: 5; border-bottom: 1px solid var(--border-light); margin-bottom: 30px; }
-        [data-theme="dark"] .progress-sticky { background: rgba(30, 41, 59, 0.85); }
+        .progress-sticky { 
+            position: sticky; top: 0; background: var(--bg-surface); 
+            padding: 20px 0; z-index: 5; margin-bottom: 30px; 
+            border-bottom: 1px solid var(--border-light);
+            /* Glassmorphism effect */
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        [data-theme="dark"] .progress-sticky { background: rgba(18, 18, 20, 0.9); }
+        
         .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .progress-title { margin: 0; color: var(--heading-color); font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
-        .progress-count { font-size: 15px; font-weight: 800; color: var(--accent-blue); background: var(--badge-bg); padding: 8px 15px; border-radius: 12px; letter-spacing: 1.5px; border: 1px solid var(--border-light); }
-        .progress-track { width: 100%; height: 12px; background: var(--border-light); border-radius: 10px; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, #38bdf8, var(--success-green-brand)); width: 0%; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); border-radius: 10px; }
-
-        .eval-category-title { color: var(--heading-color); font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; word-spacing: 3px; margin: 50px 0 25px 0; padding-bottom: 12px; border-bottom: 3px dashed var(--border-light); display: flex; align-items: center; gap: 12px; }
-        .eval-category-title::before { content: '⚡'; display: inline-block; font-size: 22px; }
-
-        .eval-row { background: var(--input-bg); border: 2px solid var(--border-light); border-radius: 20px; padding: 30px 35px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 15px; position: relative; }
-        .eval-row:hover { border-color: var(--accent-blue); box-shadow: var(--shadow-soft); transform: translateY(-3px); }
-        .eval-q-text { font-size: 17px; font-weight: 700; color: var(--text-dark); line-height: 1.8; letter-spacing: 0.5px; word-spacing: 2px; }
+        .progress-title { margin: 0; color: var(--text-heading); font-size: 20px; font-weight: 800; }
         
-        .eval-input { width: 100%; max-width: 500px; padding: 18px 22px; border: 2px solid var(--border-light); border-radius: 14px; font-size: 16px; font-weight: 700; color: var(--text-dark); background: var(--white); transition: all 0.3s ease; cursor: pointer; letter-spacing: 0.5px; word-spacing: 2px; appearance: none; }
-        .eval-input:focus { border-color: #38bdf8; outline: none; box-shadow: 0 0 0 5px rgba(56, 189, 248, 0.2); }
+        /* Action buttons inside sticky header */
+        .sticky-actions { display: flex; gap: 10px; align-items: center; }
+        .btn-clear {
+            background: transparent; color: var(--text-muted);
+            border: 1px solid var(--border-light); padding: 6px 12px;
+            border-radius: 8px; font-size: 12px; font-weight: 700;
+            cursor: pointer; transition: 0.2s; text-transform: uppercase;
+        }
+        .btn-clear:hover { background: var(--danger); color: white; border-color: var(--danger); }
+        .progress-count { font-size: 13px; font-weight: 800; color: var(--text-heading); background: var(--bg-input); padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border-light); }
         
-        .eval-input.val-high { border-color: var(--success-green-brand); background: var(--val-high-bg); color: var(--val-high-text); }
-        .eval-input.val-mid { border-color: var(--warning-yellow); background: var(--val-mid-bg); color: var(--val-mid-text); }
-        .eval-input.val-low { border-color: var(--danger-red); background: var(--val-low-bg); color: var(--val-low-text); }
-        .eval-input.val-done { border-color: var(--accent-blue); background: var(--val-done-bg); }
+        .progress-track { width: 100%; height: 8px; background: var(--bg-input); border-radius: 10px; overflow: hidden; border: 1px solid var(--border-light); }
+        .progress-fill { height: 100%; background: var(--text-heading); width: 0%; transition: width 0.4s ease; }
 
-        .eval-textarea { width: 100%; height: 120px; padding: 18px 22px; border: 2px solid var(--border-light); border-radius: 14px; font-size: 16px; font-family: inherit; font-weight: 500; background: var(--white); transition: 0.3s; resize: vertical; line-height: 1.8; letter-spacing: 0.5px; word-spacing: 2.5px; color: var(--text-dark); }
-        .eval-textarea:focus { border-color: #38bdf8; outline: none; box-shadow: 0 0 0 5px rgba(56, 189, 248, 0.2); }
-        .eval-textarea.val-done { border-color: var(--accent-blue); background: var(--val-done-bg); }
+        .eval-category-title { 
+            color: var(--text-heading); font-size: 16px; font-weight: 800; 
+            text-transform: uppercase; letter-spacing: 1px; 
+            margin: 40px 0 20px 0; padding-bottom: 10px; 
+            border-bottom: 2px dashed var(--border-light); 
+        }
 
-        .btn-copy { background: linear-gradient(135deg, var(--success-green-brand), #047857); color: #ffffff; border: none; padding: 22px; border-radius: 16px; font-weight: 800; cursor: pointer; width: 100%; text-transform: uppercase; letter-spacing: 2px; word-spacing: 3px; box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4); margin-top: 40px; font-size: 17px; font-family: inherit; transition: all 0.3s ease; }
-        .btn-copy:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 20px 35px -5px rgba(16, 185, 129, 0.5); }
-
-        .btn-draft { background: linear-gradient(135deg, var(--joyful-orange-brand), #d97706); color: #ffffff; border: none; padding: 22px; border-radius: 16px; font-weight: 800; cursor: pointer; width: 100%; text-transform: uppercase; letter-spacing: 2px; word-spacing: 3px; margin-top: 15px; box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.4); font-size: 17px; font-family: inherit; transition: all 0.3s ease; }
-        .btn-draft:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 20px 35px -5px rgba(245, 158, 11, 0.5); }
+        .eval-row { 
+            background: var(--bg-surface-alt); border: 1px solid var(--border-light); 
+            border-radius: var(--radius-lg); padding: 25px; margin-bottom: 15px; 
+            display: flex; flex-direction: column; gap: 12px; transition: 0.2s;
+        }
+        .eval-row:hover { border-color: var(--text-muted); }
+        .eval-q-text { font-size: 15px; font-weight: 600; color: var(--text-heading); line-height: 1.6; }
         
-        @keyframes successPulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); background: var(--success-green-brand); } 100% { transform: scale(1); } }
-        .btn-reward-anim { animation: successPulse 0.5s ease; background: linear-gradient(135deg, var(--success-green-brand), #047857) !important; color: white !important; }
+        .eval-input, .eval-textarea { 
+            width: 100%; max-width: 500px; padding: 14px 18px; 
+            border: 1px solid var(--border-light); border-radius: var(--radius-md); 
+            font-size: 14px; background: var(--bg-surface); color: var(--text-main); 
+        }
+        .eval-textarea { max-width: 100%; height: 100px; resize: vertical; }
 
-        .btn-pdf { background: linear-gradient(135deg, var(--danger-red), #b91c1c); color: #ffffff; border: none; padding: 22px; border-radius: 16px; font-weight: 800; cursor: pointer; width: 100%; text-transform: uppercase; letter-spacing: 2px; word-spacing: 3px; margin-top: 15px; box-shadow: 0 10px 25px -5px rgba(239, 68, 68, 0.4); font-size: 17px; font-family: inherit; transition: all 0.3s ease; }
-        .btn-pdf:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 20px 35px -5px rgba(239, 68, 68, 0.5); }
+        .btn-copy { 
+            background: var(--text-heading); color: var(--bg-surface); 
+            border: none; padding: 18px; border-radius: var(--radius-md); 
+            font-weight: 800; cursor: pointer; width: 100%; text-transform: uppercase; 
+            letter-spacing: 1px; margin-top: 30px; font-size: 14px; font-family: inherit; transition: 0.2s; 
+        }
+        .btn-copy:hover { transform: translateY(-2px); opacity: 0.9; }
 
-        .empty-state { text-align: center; padding: 70px 20px; color: var(--text-muted); }
-        .empty-state h3 { font-size: 38px; color: var(--heading-color); margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px; word-spacing: 3px; }
-        .empty-state p { font-size: 19px; line-height: 1.8; max-width: 700px; margin: 0 auto; color: var(--text-muted); letter-spacing: 0.5px; word-spacing: 2.5px; font-weight: 500; }
-        .joyful-emoji { font-size: 65px; margin-bottom: 25px; display: block; animation: gentleFadeIn 1s ease forwards, pulse-dot 3s infinite; }
+        .btn-draft, .btn-pdf { 
+            background: var(--bg-surface-alt); color: var(--text-heading); 
+            border: 1px solid var(--border-light); padding: 18px; border-radius: var(--radius-md); 
+            font-weight: 800; cursor: pointer; width: 100%; text-transform: uppercase; 
+            letter-spacing: 1px; margin-top: 12px; font-size: 14px; font-family: inherit; transition: 0.2s; 
+        }
+        .btn-draft:hover, .btn-pdf:hover { border-color: var(--text-muted); }
+
+        .btn-reward-anim { background: var(--success) !important; color: white !important; border-color: var(--success) !important; }
+
+        .empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+        .empty-state h3 { font-size: 28px; color: var(--text-heading); margin-bottom: 10px; font-weight: 800; letter-spacing: -0.5px; }
+        .empty-state p { font-size: 16px; line-height: 1.6; font-weight: 400; }
+        .joyful-emoji { font-size: 48px; margin-bottom: 15px; display: block; }
 
         /* DRAWERS */
-        .btn-toggle-rubric { position: fixed; right: -5px; top: 50%; transform: translateY(-50%); background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: white; padding: 20px 25px 20px 20px; border-radius: 20px 0 0 20px; border: none; font-weight: 800; font-size: 15px; cursor: pointer; box-shadow: -8px 8px 25px rgba(109, 40, 217, 0.3); z-index: 1000; transition: 0.3s ease; text-transform: uppercase; letter-spacing: 2px; word-spacing: 3px; writing-mode: vertical-rl; text-orientation: mixed; font-family: inherit; }
-        .btn-toggle-rubric:hover { padding-right: 40px; background: #7c3aed; box-shadow: -12px 12px 30px rgba(109, 40, 217, 0.4); }
-        .rubric-panel { position: fixed; top: 0; right: -750px; width: 700px; height: 100vh; background: var(--white); box-shadow: var(--drawer-shadow); z-index: 1001; transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1); overflow-y: auto; border-left: 2px solid var(--border-light); }
+        .btn-toggle-rubric, .btn-toggle-ai { 
+            position: fixed; top: 50%; transform: translateY(-50%); 
+            background: var(--bg-surface); color: var(--text-heading); 
+            border: 1px solid var(--border-light); padding: 15px 12px; 
+            font-weight: 800; font-size: 12px; cursor: pointer; 
+            z-index: 1000; transition: 0.2s; text-transform: uppercase; 
+            letter-spacing: 1.5px; writing-mode: vertical-rl; text-orientation: mixed; 
+            box-shadow: var(--shadow-md); font-family: inherit;
+        }
+        .btn-toggle-rubric { right: -1px; border-radius: 12px 0 0 12px; border-right: none; }
+        .btn-toggle-ai { left: -1px; border-radius: 0 12px 12px 0; border-left: none; }
+        .btn-toggle-rubric:hover { padding-right: 20px; background: var(--bg-surface-alt); }
+        .btn-toggle-ai:hover { padding-left: 20px; background: var(--bg-surface-alt); }
+        
+        .rubric-panel, .ai-panel { 
+            position: fixed; top: 0; width: 600px; height: 100vh; 
+            background: var(--bg-surface); z-index: 1001; 
+            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); overflow-y: auto; 
+        }
+        .rubric-panel { right: -650px; border-left: 1px solid var(--border-light); box-shadow: var(--shadow-drawer); }
+        .ai-panel { left: -650px; border-right: 1px solid var(--border-light); box-shadow: var(--shadow-drawer-left); }
         .rubric-panel.open { right: 0; }
-
-        .btn-toggle-ai { position: fixed; left: -5px; top: 50%; transform: translateY(-50%); background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 20px 20px 20px 25px; border-radius: 0 20px 20px 0; border: none; font-weight: 800; font-size: 15px; cursor: pointer; box-shadow: 8px 8px 25px rgba(217, 119, 6, 0.3); z-index: 1000; transition: 0.3s ease; text-transform: uppercase; letter-spacing: 2px; word-spacing: 3px; writing-mode: vertical-rl; text-orientation: mixed; font-family: inherit; }
-        .btn-toggle-ai:hover { padding-left: 40px; background: #ea580c; box-shadow: 12px 12px 30px rgba(217, 119, 6, 0.4); }
-        .ai-panel { position: fixed; top: 0; left: -750px; width: 700px; height: 100vh; background: var(--white); box-shadow: var(--drawer-shadow-left); z-index: 1001; transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1); overflow-y: auto; border-right: 2px solid var(--border-light); }
         .ai-panel.open { left: 0; }
 
-        .drawer-header { color: #ffffff; padding: 40px; position: sticky; top: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-        .rubric-header { background: linear-gradient(135deg, var(--mcn-navy-brand), var(--mcn-blue-brand)); }
-        .ai-header { background: linear-gradient(135deg, #d97706, #b45309); }
-        .drawer-header h2 { margin: 0; font-size: 22px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; word-spacing: 3px; line-height: 1.6; }
-        .close-drawer { background: none; border: none; color: white; font-size: 38px; cursor: pointer; transition: 0.2s; padding: 0; line-height: 1; font-weight: 300; }
-        .close-drawer:hover { color: #cbd5e1; transform: scale(1.2) rotate(90deg); }
+        .drawer-header { 
+            background: var(--bg-surface-alt); padding: 30px; 
+            position: sticky; top: 0; z-index: 10; display: flex; 
+            justify-content: space-between; align-items: center; 
+            border-bottom: 1px solid var(--border-light);
+        }
+        .drawer-header h2 { margin: 0; font-size: 18px; font-weight: 800; color: var(--text-heading); text-transform: uppercase; letter-spacing: 1px; }
+        .close-drawer { background: none; border: none; color: var(--text-muted); font-size: 32px; cursor: pointer; transition: 0.2s; padding: 0; line-height: 1; }
+        .close-drawer:hover { color: var(--text-heading); transform: scale(1.1); }
         
-        .rubric-content { padding: 45px 40px; color: var(--text-dark); }
-        .rubric-section { margin-bottom: 45px; border-bottom: 2px dashed var(--border-light); padding-bottom: 30px; }
-        .rubric-section h4 { color: var(--heading-color); font-size: 20px; margin: 0 0 25px 0; text-transform: uppercase; letter-spacing: 1.5px; word-spacing: 3px; border-left: 6px solid var(--accent-blue); padding-left: 15px; font-weight: 800; }
+        .rubric-content { padding: 30px; color: var(--text-main); }
+        .rubric-section { margin-bottom: 30px; border-bottom: 1px solid var(--border-light); padding-bottom: 20px; }
+        .rubric-section h4 { color: var(--text-heading); font-size: 16px; margin: 0 0 20px 0; text-transform: uppercase; letter-spacing: 1px; font-weight: 800; }
         
-        .ai-section h4 { color: #92400e; border-left-color: #f59e0b; }
-        [data-theme="dark"] .ai-section h4 { color: #fde68a; }
-        .ai-rule { border-left-color: #fde68a !important; }
+        .rubric-rule { 
+            background: var(--bg-surface-alt); padding: 20px; 
+            border-radius: var(--radius-md); margin-bottom: 15px; 
+            border: 1px solid var(--border-light); 
+        }
+        .rubric-rule p { margin: 0 0 10px 0; font-size: 14px; line-height: 1.7; }
+        
+        .score-badge { 
+            font-weight: 800; padding: 4px 8px; border-radius: 6px; 
+            display: inline-block; margin-right: 8px; color: var(--bg-surface); 
+            font-size: 11px; text-transform: uppercase; letter-spacing: 1px; 
+            background: var(--text-heading);
+        }
+        .s-yn { background: var(--text-muted); }
 
-        .rubric-rule { background: var(--rule-bg); padding: 25px; border-radius: 16px; margin-bottom: 20px; border: 1px solid var(--border-light); border-left: 5px solid #38bdf8; box-shadow: var(--shadow-soft); transition: 0.3s; }
-        .rubric-rule:hover { transform: translateY(-2px); box-shadow: var(--shadow-float); }
-        .rubric-rule p { margin: 0 0 12px 0; font-size: 15px; line-height: 1.8; letter-spacing: 0.5px; word-spacing: 2.5px; }
-        .rubric-rule p:last-child { margin-bottom: 0; }
-        
-        .score-badge { font-weight: 800; padding: 6px 12px; border-radius: 8px; display: inline-block; margin-right: 12px; color: white; min-width: 70px; text-align: center; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; word-spacing: 2px; }
-        .s5 { background: #10b981; } 
-        .s4 { background: #34d399; color: #064e3b; } 
-        .s3 { background: #fbbf24; color: #78350f; } 
-        .s2 { background: #f87171; color: #7f1d1d; } 
-        .s1 { background: #dc2626; } 
-        .s-yn { background: var(--auth-purple-brand); } 
-
-        .ai-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 15px; margin-bottom: 25px; background: var(--white); border-radius: 16px; overflow: hidden; border: 1px solid var(--border-light); box-shadow: var(--shadow-soft); }
-        .ai-table th { background: var(--table-th-bg); color: var(--table-th-text); text-align: left; padding: 18px; border-bottom: 2px solid var(--border-light); font-weight: 800; letter-spacing: 0.5px; word-spacing: 2.5px; }
-        .ai-table td { padding: 18px; border-bottom: 1px solid var(--border-light); vertical-align: top; line-height: 1.8; border-right: 1px solid var(--border-light); letter-spacing: 0.5px; word-spacing: 2.5px; }
-        .ai-table td:last-child { border-right: none; }
-        .ai-table tr:last-child td { border-bottom: none; }
-        .ai-table-footer td { font-weight: 700; background: var(--table-footer-bg); font-style: italic; color: var(--table-th-text); }
+        .ai-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 20px; background: var(--bg-surface); }
+        .ai-table th, .ai-table td { padding: 12px; border: 1px solid var(--border-light); text-align: left; line-height: 1.6; }
+        .ai-table th { background: var(--bg-surface-alt); font-weight: 800; color: var(--text-heading); }
 
         /* FOOTER */
-        .elegant-footer { max-width: 1050px; margin: 50px auto; text-align: center; }
-        .elegant-footer-disclaimer { background: var(--disclaimer-bg); border: 2px solid #fde68a; border-left: 8px solid var(--joyful-orange-brand); padding: 30px 40px; border-radius: 24px; text-align: left; font-size: 15px; color: #92400e; box-shadow: var(--shadow-float); line-height: 1.8; margin-bottom: 30px; letter-spacing: 0.5px; word-spacing: 2.5px; }
-        [data-theme="dark"] .elegant-footer-disclaimer { color: #fde68a; border-color: #92400e; }
-        .about-developer { background: var(--white); border: 1px solid var(--border-light); border-radius: 24px; padding: 30px; box-shadow: var(--shadow-soft); }
-        .about-developer h4 { color: var(--heading-color); font-weight: 800; text-transform: uppercase; letter-spacing: 3px; word-spacing: 3px; font-size: 15px; margin: 0 0 20px 0; }
-        .elegant-footer-links { display: flex; justify-content: center; gap: 30px; font-weight: 800; text-transform: uppercase; font-size: 14px; letter-spacing: 2px; word-spacing: 2px; }
-        .elegant-footer-links a { color: var(--accent-blue); text-decoration: none; border-bottom: 2px solid transparent; padding-bottom: 4px; transition: 0.3s; }
-        .elegant-footer-links a:hover { color: var(--heading-color); border-bottom-color: var(--heading-color); transform: translateY(-2px); }
+        .elegant-footer { max-width: 1000px; margin: 40px auto; text-align: center; }
+        .elegant-footer-disclaimer { 
+            background: var(--bg-surface); border: 1px solid var(--border-light); 
+            padding: 25px; border-radius: var(--radius-lg); text-align: left; 
+            font-size: 13px; color: var(--text-muted); line-height: 1.7; margin-bottom: 25px; 
+        }
+        .about-developer { 
+            background: var(--bg-surface); border: 1px solid var(--border-light); 
+            border-radius: var(--radius-lg); padding: 25px; 
+        }
+        .about-developer h4 { color: var(--text-heading); font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; margin: 0 0 15px 0; }
+        .elegant-footer-links { display: flex; justify-content: center; gap: 20px; font-weight: 700; font-size: 13px; }
+        .elegant-footer-links a { color: var(--text-muted); text-decoration: none; transition: 0.2s; }
+        .elegant-footer-links a:hover { color: var(--text-heading); }
 
     </style>
 </head>
 <body>
 
-<button class="theme-toggle" onclick="toggleTheme()" id="btnThemeToggle" title="Toggle Dark/Light Mode">
+<button class="theme-toggle" onclick="toggleTheme()" id="btnThemeToggle" title="Toggle Theme">
     <span id="themeIcon">🌙</span>
 </button>
 
-<button class="btn-toggle-ai" onclick="toggleAiPolicy()" id="btnAiToggle">View AI Policy</button>
+<button class="btn-toggle-ai" onclick="toggleAiPolicy()">AI Policy</button>
 <div class="ai-panel" id="aiPanel">
-    <div class="drawer-header ai-header">
-        <h2>Global Admissions Committee 2026<br>AI Use Policy Guide</h2>
+    <div class="drawer-header">
+        <h2>AI Policy Guide</h2>
         <button class="close-drawer" onclick="toggleAiPolicy()">×</button>
     </div>
     <div class="rubric-content">
-        
         <div class="rubric-section ai-section">
-            <div class="rubric-rule ai-rule" style="background: var(--white);">
-                <p>The MCN Admissions Team acknowledges that artificial intelligence tools are widely accessible and commonly used by students for writing support. This policy does not prohibit the responsible use of such tools. Instead, it establishes clear boundaries to ensure that all submitted applications reflect the applicant’s own thinking, experiences, and ideas.</p>
-                <p><strong>✅ AI may be used as a supplementary editing tool.</strong> Acceptable uses include correcting grammar, improving clarity, refining sentence flow, or adjusting structure. These forms of assistance are comparable to using proofreading software or seeking language support.</p>
-                <p><strong>❌ AI may not be used to generate the substance of an application.</strong> This includes developing project ideas, constructing arguments, producing reflections, or shaping the intellectual core of responses. The originality, reasoning, and insight presented in the application must belong to the student.</p>
-                <p>When evaluating applications, reviewers must assess two dimensions:</p>
-                <ol style="font-size: 14px; line-height: 1.8; margin-bottom: 10px; color: var(--text-dark); font-weight: 500; letter-spacing: 0.5px; word-spacing: 2.5px;">
-                    <li>The nature of AI use: whether it appears limited to language refinement or extends to idea generation and substantive content.</li>
-                    <li>The extent of AI use: whether it appears in isolated sections or consistently throughout the application.</li>
-                </ol>
-                <p>The purpose of this policy is to preserve authenticity and fairness while recognizing that language support tools may be used responsibly.</p>
+            <div class="rubric-rule ai-rule">
+                <p><strong>✅ AI may be used as an editing tool.</strong> Correcting grammar, improving clarity, or adjusting structure.</p>
+                <p><strong>❌ AI may not be used to generate substance.</strong> Developing project ideas, constructing arguments, or generating reflections is prohibited.</p>
             </div>
         </div>
-
         <div class="rubric-section ai-section">
-            <h4>Red Flags and Green Flags</h4>
-            <p style="font-size: 14px; margin-bottom: 20px; font-style: italic; color: var(--text-muted); letter-spacing: 0.5px; word-spacing: 2.5px;">Reviewers should rely on pattern recognition across the full application rather than isolated phrases. The indicators below are intended to guide judgment, not replace it.</p>
-            
-            <h5 style="color: var(--text-dark); margin: 0 0 12px 0; font-size: 15px; letter-spacing: 0.5px; word-spacing: 2.5px;">A. Assessing Whether AI Was Used for Substance or Only Language Refinement</h5>
+            <h4>Red Flags vs Green Flags</h4>
             <table class="ai-table">
-                <tr>
-                    <th>Green Flags — Likely Supplementary Editing Only</th>
-                    <th>Red Flags — Likely Substantive AI Reliance</th>
-                </tr>
-                <tr>
-                    <td>Clear references to personal experiences, communities, or institutions.</td>
-                    <td>Repeated restatement of the same idea using different synonyms without adding depth.</td>
-                </tr>
-                <tr>
-                    <td>Specific examples with concrete details rather than abstract descriptions.</td>
-                    <td>Overuse of broad, vague, abstract terminology without specific examples.</td>
-                </tr>
-                <tr>
-                    <td>Reflections that demonstrate nuance, self-awareness, or lessons learned.</td>
-                    <td>Highly polished but generic responses that could apply to any context.</td>
-                </tr>
-                <tr>
-                    <td>Natural variation in tone and structure across responses.</td>
-                    <td>Uniform paragraph structure across all answers.</td>
-                </tr>
-                <tr>
-                    <td>Minor imperfections or stylistic inconsistencies that reflect authentic writing.</td>
-                    <td>Lack of personal voice, local context, or concrete detail.</td>
-                </tr>
-                <tr class="ai-table-footer">
-                    <td>These features suggest that the applicant’s ideas are original, even if the language appears polished.</td>
-                    <td>These patterns may indicate that AI was used to generate or heavily shape the substance of the application.</td>
-                </tr>
-            </table>
-
-            <h5 style="color: var(--text-dark); margin: 30px 0 12px 0; font-size: 15px; letter-spacing: 0.5px; word-spacing: 2.5px;">B. Assessing Whether AI Was Used Throughout or in Limited Portions</h5>
-            <table class="ai-table">
-                <tr>
-                    <th>Indicators of Limited Use</th>
-                    <th>Indicators of Extensive Use</th>
-                </tr>
-                <tr>
-                    <td>One or two responses noticeably more refined than others.</td>
-                    <td>Consistently uniform tone across all responses.</td>
-                </tr>
-                <tr>
-                    <td>Shifts in tone between sections.</td>
-                    <td>Similar sentence rhythm and structure throughout the application.</td>
-                </tr>
-                <tr>
-                    <td>Mostly grounded, authentic responses with isolated formal passages.</td>
-                    <td>Multiple abstract and vague answers.</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Lack of variation in vocabulary or expression style.</td>
-                </tr>
-                <tr class="ai-table-footer">
-                    <td>This pattern suggests that AI may have been used selectively for editing purposes.</td>
-                    <td>This pattern suggests sustained reliance rather than occasional editing support.</td>
-                </tr>
+                <tr><th>Green Flags (Good)</th><th>Red Flags (Bad)</th></tr>
+                <tr><td>Clear personal experiences & specifics</td><td>Repeated ideas using just different synonyms</td></tr>
+                <tr><td>Concrete details & nuance</td><td>Overuse of broad, vague, abstract words</td></tr>
+                <tr><td>Natural variation in tone</td><td>Highly polished but generic and uniform structure</td></tr>
             </table>
         </div>
-
-        <div class="rubric-section ai-section">
-            <h4>Reviewer Decision Framework</h4>
-            <div class="rubric-rule ai-rule" style="background: var(--white);">
-                <p>For each application, reviewers must select one of the following four options in the review sheet (the drop-down menu for the question, <strong>“Overall, do the applicant’s responses seem AI-generated?”</strong>):</p>
-                <ol style="font-size: 14px; line-height: 1.8; margin-bottom: 0; color: var(--text-dark); letter-spacing: 0.5px; word-spacing: 2.5px;">
-                    <li><strong>Option 1:</strong> Yes, the responses seem completely AI-generated and the ideas seem unoriginal.</li>
-                    <li><strong>Option 2:</strong> Yes, AI has been used for the majority of the application but only to enhance language and grammar; the ideas seem original.</li>
-                    <li><strong>Option 3:</strong> Yes, AI has been used for a short portion of the application but only to enhance language and grammar; the ideas seem original.</li>
-                    <li><strong>Option 4:</strong> No, the student’s responses seem completely original without any apparent use of AI.</li>
-                </ol>
-            </div>
-        </div>
-
-        <div class="rubric-section ai-section">
-            <h4>Decision Guide</h4>
-            <table class="ai-table">
-                <tr>
-                    <th>Observed Pattern</th>
-                    <th>Nature of Ideas</th>
-                    <th>Extent of AI Use</th>
-                    <th>Select</th>
-                </tr>
-                <tr>
-                    <td>Generic, repetitive, lacking specificity</td>
-                    <td>Ideas appear unoriginal</td>
-                    <td>Used throughout</td>
-                    <td>Option 1</td>
-                </tr>
-                <tr>
-                    <td>Clear original ideas; language uniformly polished</td>
-                    <td>Ideas seem original</td>
-                    <td>Majority of responses</td>
-                    <td>Option 2</td>
-                </tr>
-                <tr>
-                    <td>Strong authenticity overall with isolated polished sections</td>
-                    <td>Ideas seem original</td>
-                    <td>Limited portion</td>
-                    <td>Option 3</td>
-                </tr>
-                <tr>
-                    <td>Consistent authentic voice and specificity</td>
-                    <td>Ideas seem original</td>
-                    <td>No visible indicators</td>
-                    <td>Option 4</td>
-                </tr>
-            </table>
-            <p style="font-size:14px; margin-top:15px; font-weight: 700; text-align: center; color: var(--heading-color); letter-spacing: 0.5px; word-spacing: 2.5px;">Reviewers must base their selection on the overall pattern of the application rather than a single sentence or paragraph.</p>
-        </div>
-
-        <div class="rubric-section ai-section">
-            <h4>Examples</h4>
-            <div class="rubric-rule ai-rule">
-                <p><strong>Example 1 — Likely Fully AI-Generated (Select Option 1)</strong><br>
-                "My initiative seeks to create sustainable and transformative impact by empowering marginalized communities through innovative and scalable solutions that foster systemic change and long-term resilience."<br>
-                <span style="color:var(--text-muted); font-style: italic;">This response relies heavily on abstract language and broad claims without concrete detail or personal grounding.</span></p>
-            </div>
-            <div class="rubric-rule ai-rule">
-                <p><strong>Example 2 — Majority Language Enhancement (Select Option 2)</strong><br>
-                "In my second year at university, I noticed that many first-generation students struggled to navigate academic requirements. I plan to create a peer mentorship network that offers structured workshops and simplified guides to reduce confusion and improve retention."<br>
-                <span style="color:var(--text-muted); font-style: italic;">The idea is specific and grounded. If similar polish appears consistently across the application, Option 2 should be selected.</span></p>
-            </div>
-            <div class="rubric-rule ai-rule">
-                <p><strong>Example 3 — Limited Editing Support (Select Option 3)</strong><br>
-                “I started a small tutoring group after realizing many of my classmates were struggling with calculus. At first, we simply met to review assignments together, but over time it developed into a more organized peer-support network that improved both confidence and performance. Through this experience, I came to better understand the importance of accessible academic support structures within university communities.”<br>
-                <span style="color:var(--text-muted); font-style: italic;">This paragraph is clearly rooted in a specific personal experience, but the structure and phrasing are noticeably more polished than the applicant’s typical informal tone elsewhere.</span></p>
-            </div>
-            <div class="rubric-rule ai-rule">
-                <p><strong>Example 4 — Fully Original (Select Option 4)</strong><br>
-                "When heavy rains damaged several homes in my area, I organized classmates to collect supplies. We did not have a plan at first, and we made mistakes, but the experience showed me how unprepared we were. That is why I want to create a campus emergency response training group."<br>
-                <span style="color:var(--text-muted); font-style: italic;">This response demonstrates specificity, lived experience, and authentic reflection.</span></p>
-            </div>
-        </div>
-
-        <div class="rubric-section ai-section" style="border-bottom: none;">
-            <h4>Final Guidance</h4>
-            <div class="rubric-rule ai-rule" style="background: var(--white); border-left-color: #f59e0b !important;">
-                <p>AI detection requires careful judgment. <strong>Polished writing alone should not be penalized, and such applications must not be rejected.</strong> The determining factor is originality.</p>
-                <p>If the ideas, reasoning, and insight clearly originate from the applicant, minor editing assistance is acceptable. If originality appears compromised or the application lacks authentic substance, it must be marked accordingly.</p>
-                <p>This policy is intended to ensure fairness, protect authenticity, and uphold the integrity of the Millennium Fellowship admissions process.</p>
-            </div>
-        </div>
-
     </div>
 </div>
 
-<button class="btn-toggle-rubric" onclick="toggleRubric()" id="btnRubricToggle">View Official Rubric</button>
+<button class="btn-toggle-rubric" onclick="toggleRubric()">Official Rubric</button>
 <div class="rubric-panel" id="rubricPanel">
-    <div class="drawer-header rubric-header">
-        <h2>Official Evaluation Rubric</h2>
+    <div class="drawer-header">
+        <h2>Official Rubric</h2>
         <button class="close-drawer" onclick="toggleRubric()">×</button>
     </div>
     <div class="rubric-content">
         <div class="rubric-section">
-            <h4>Part 1: Project Description & SDG</h4>
+            <h4>Part 1: Project Description</h4>
             <div class="rubric-rule">
-                <p><strong>Clarity & Problem Identification (1.1 - 1.3)</strong></p>
-                <p><span class="score-badge s5">5 - Highly Agree</span> Candidate effectively identifies a problem that relates to at least one SDG and offers a compelling response through their project. Description is highly clear and uses simple language as if explaining to a friend. Avoids all buzzwords.</p>
-                <p><span class="score-badge s4">4 - Agree</span> Candidate identifies a problem related to at least one SDG, but with some lack of clarity or specificity. They offer a reasonably compelling response to that problem. Description is clear and easy to understand. Mostly uses simple language, though it may include 1-2 minor technical terms that do not hinder comprehension.</p>
-                <p><span class="score-badge s3">3 - Unsure</span> Description is generally understandable but lacks consistency in clarity. Uses some buzzwords or technical terms that may confuse a non-expert reader.</p>
-                <p><span class="score-badge s2">2 - Disagree</span> Candidate's problem statement lacks clarity or fails to address a significant issue related at least one SDG or their project is not a compelling response to the problem identified. Description is vague or poorly structured. Overuses buzzwords or unexplained technical language, making it difficult for a non-expert to follow.</p>
-                <p><span class="score-badge s1">1 - Highly Disagree</span> Candidate does not clearly identify a problem or fails to relate it to at least one SDG or offers a poor response to the problem identified. Phrases answers in future uncertainity like "can do", "we can try", "will try to". Description is unclear, confusing, or inaccessible. Heavily relies on jargon and buzzwords, with little to no effort to simplify or explain ideas.</p>
-            </div>
-            
-            <div class="rubric-rule">
-                <p><strong>Number of Lives Impacted (1.9 & 2)</strong></p>
-                <p><span class="score-badge s5">5 - Highly Agree</span> Candidate provides a specific, well-reasoned number based on concrete project plans and target groups. They demonstrate understanding of potential impact limitations and provide justification for their estimate.</p>
-                <p><span class="score-badge s4">4 - Agree</span> Candidate provides a reasonable number with some explanation of how they arrived at it. However, they may lack details about target groups or project reach.</p>
-                <p><span class="score-badge s3">3 - Unsure</span> Candidate expresses uncertainity about number of lives impacted or avoids giving speific estimate. They may need furhter guidance or clarification on how to quantify impact.</p>
-                <p><span class="score-badge s2">2 - Disagree</span> Candidate provides an unrealistic number without justification or contradicts other information in their application. They may need to refine their project goals or impact measurement strategy.</p>
-                <p><span class="score-badge s1">1 - Highly Disagree</span> Candidate claims their project will have no positive impact or even suggests potential negative consequences. This raises concerns about project feasibility and alignment with program goals.</p>
-            </div>
-            
-            <div class="rubric-rule">
-                <p><strong>SDG & UNAI Principles (2.1 & 2.2)</strong></p>
-                <p><span class="score-badge s5">5 - Highly Agree</span> Candidate clearly identifies a specific SDG and provides a convincing explanation of how their work directly addresses its core objectives and targets. They demonstrate a deep understandng of the selected SDG and its relevance to their work. Candidate clearly and explicitly demonstrates a strong connection between their work and a specific UN Academic Impact Principle, citing relevant details and objectives. They show a deep understanding of the principle and how their work contributes to its goals.</p>
-                <p><span class="score-badge s4">4 - Agree</span> Candidate identifies a relevant SDG and makes a reasonable connection to their work, but the explanation lacks depth or specificity. They demonstrate some understanding of the chosen SDG but could elaborate on the specific targets their work addresses. Candidate acknowledges the UN Academic Impact Principles or is unable to clearly articulate a connection between their work and a UN Academic Impact Principle, but the explanation lacks specifics or depth. They could benefit from providing more concrete examples or elaborating on their understanding.</p>
-                <p><span class="score-badge s3">3 - Unsure</span> Candidate identifies a connection to the SDGs but is unsure which one best aligns with their work or provides a vague connection. They may need further guidance or information to identify the most relevant SDG. Candidate is unsure of the specific UN Academic Impact connection between their work and any principle. They may need further resources or guidance.</p>
-                <p><span class="score-badge s2">2 - Disagree</span> Candidate identifies an SDG that is not directly relevant to their work or fails to explain the connection convincingly. They demonstrate limited understanding of the SDGs or their relationship to their work. Candidate does not see a connection between their work and any UN Academic Impact Principles, potentially due to a misunderstanding of the principles or their own work's focus. Clarification and additional information may be needed.</p>
-                <p><span class="score-badge s1">1 - Highly Disagree</span> Candidate's work has no connection to any SDG or actively rejects the relelance of SDGs despite potential connections. They demonstrate a clear misunderstanding or disinterest in the SDGs. Candidate's work explicitly refutes any connection between their work and the UN Academic Impact Principles, potentially demonstrating a lack of awareness or alignment with the goals. Further exploration of their motivations and understanding is required.</p>
+                <p><span class="score-badge">5</span> Highly Clear: Problem relates to SDG, compelling response, simple language, no buzzwords.</p>
+                <p><span class="score-badge">4</span> Clear: Relates to SDG, reasonable response, mostly simple language.</p>
+                <p><span class="score-badge">1</span> Unclear: Fails to relate to SDG, vague, heavy jargon.</p>
             </div>
         </div>
-
         <div class="rubric-section">
-            <h4>Part 1: Proximity to Issue</h4>
+            <h4>Part 2: Personal Motivation</h4>
             <div class="rubric-rule">
-                <p><strong>Community Connection (2.2)</strong></p>
-                <p><span class="score-badge s5">5 - Highly Agree</span> Candidate Clearly demonstrates strong personal connection to the community, actively involved as a member or through deep, impactful relationships. (To note: Extensive personal stories, concrete examples of involvement, clear understanding of community dynamics).</p>
-                <p><span class="score-badge s4">4 - Agree</span> Candidate Shows some connection to the community, either through past experiences or ongoing interactions (Examples of involvement, understanding of community needs, but lacks depth or current engagement).</p>
-                <p><span class="score-badge s3">3 - Unsure</span> Unclear level of connection to the community, lacks specific details or offers conflicting information (Vague statements, limited understanding of community dynamics, no clear evidence of engagement).</p>
-                <p><span class="score-badge s2">2 - Disagree</span> Candidate does not demonstrate any clear connection to the community, suggests involvement was superficial or not impactful. (No examples, dismissive language about the community, prioritizes external perspectives).</p>
-                <p><span class="score-badge s1">1 - Highly Disagree</span> Candidate has no connection to the community, expresses biased vies and demonstrates lack of understanding and empathy. (Harmful stereotypes, insensitive language, clear disregard for community perspectives).</p>
-            </div>
-        </div>
-
-        <div class="rubric-section">
-            <h4>Part 2: You as a Leader</h4>
-            
-            <div class="rubric-rule">
-                <p><strong>Personal Motivation - Thoughtful/Emotional Investment (Q1)</strong></p>
-                <p><span class="score-badge s5">5 - Highly Agree</span> The candidate demonstrates a clear and compelling personal story that explains their interest in social impact.</p>
-                <p><span class="score-badge s4">4 - Agree</span> The candidate shares a personal experience that deeply connects to their chosen social issue.</p>
-                <p><span class="score-badge s3">3 - Unsure</span> The candidate mentions personal experiences, but the link to social impact motivation is not fully developed.</p>
-                <p><span class="score-badge s2">2 - Disagree</span> The candidate mentions personal experiences, but they are not relevant to their chosen social issue.</p>
-                <p><span class="score-badge s1">1 - Highly Disagree</span> The candidate does not mention any personal experiences or motivations for their interest in social impact.</p>
-            </div>
-            
-            <div class="rubric-rule">
-                <p><strong>Personal Motivation - Genuine Passion (Q1)</strong></p>
-                <p><span class="score-badge s5">5 - Highly Agree</span> Clearly articulates a deep, personal "why" behind their work. The passion feels lived-in and authentic.</p>
-                <p><span class="score-badge s4">4 - Agree</span> Explains interest in the fellowship and its social impact clearly and sincerely. Shows strong, genuine motivation, though the personal connection may not be deeply explored.</p>
-                <p><span class="score-badge s3">3 - Unsure</span> States reasons for applying that show some interest and alignment with the fellowship, but the personal "why" remains surface-level or underdeveloped.</p>
-                <p><span class="score-badge s2">2 - Disagree</span> Reasons for applying feel generic or vague. Motivation appears weak or unclear, with limited connection to social impact or personal values.</p>
-                <p><span class="score-badge s1">1 - Highly Disagree</span> Motivation is unclear or primarily focused on résumé-building, credentials, or external rewards, with little to no indication of personal or social commitment.</p>
-            </div>
-            
-            <div class="rubric-rule">
-                <p><strong>MCN Values & Fellowship (Q2)</strong></p>
-                <p><span class="score-badge s5">5 - Highly Agree</span> The candidate articulates how their own values align with the program's values and aslo outlines specific ways they will engage with the program's resources and opportunities.</p>
-                <p><span class="score-badge s4">4 - Agree</span> The candidate mentions the program's values and also contributing to the program, but the connection to their own motivation is unclear and their plans are vague or unspecific.</p>
-                <p><span class="score-badge s3">3 - Unsure</span> The candidate mentions the program, but their focus is primarily on personal benefits or outcomes and focuses primarily on receiving benefits from the program with little mention of contribution.</p>
-                <p><span class="score-badge s1">1/2 - Disagree</span> The candidate demonstrates little to no knowledge of the program's values or mission AND does not demonstrate a connection between the fellowship and their social impact goals.</p>
-            </div>
-            
-            <div class="rubric-rule">
-                <p><strong>Leadership & Teamwork - Empathy & Humility (Q3)</strong></p>
-                <p><span class="score-badge s5">5 - Highly Agree</span> The candidate clearly describes their role and responsibilities as a leader and their actions show genuine consideration for others' feelings and perspectives.</p>
-                <p><span class="score-badge s4">4 - Agree</span> The candidate mentions a leadership experience and mentions relevant MCN value, but the details are vague or incomplete and their demonstration is unclear or underdeveloped.</p>
-                <p><span class="score-badge s3">3 - Unsure</span> The candidate mentions leadership, but it's unclear if they were in a true leadership position and the actions are primarily focused on achieving results or gaining recognition.</p>
-                <p><span class="score-badge s1">1/2 - Disagree</span> The candidate does not provide any examples of leadership experience and their actions contradict or undermine MCN Values.</p>
-            </div>
-            
-            <div class="rubric-rule">
-                <p><strong>Community Mindset (Q3)</strong></p>
-                <p><span class="score-badge s5">5 - Highly Agree</span> Expresses a strong desire to collaborate with and learn from other Fellows. Values the "we" over the "I".</p>
-                <p><span class="score-badge s4">4 - Agree</span> Recognizes the importance of the fellowship community and mentions specific ways they hope to engage.</p>
-                <p><span class="score-badge s3">3 - Unsure</span> The candidate's response does not reflect their ideas on teamwork and collaboration.</p>
-                <p><span class="score-badge s2">2 - Disagree</span> Focuses almost entirely on personal gain or individual project success.</p>
-                <p><span class="score-badge s1">1 - Highly Disagree</span> Candidate does not lean toward teamwork or community values.</p>
-            </div>
-            
-        </div>
-
-        <div class="rubric-section" style="border-bottom: none;">
-            <h4>Part 3: Overview Checks</h4>
-            <div class="rubric-rule">
-                <p><strong>Final Red Flags (Yes/Maybe/No)</strong></p>
-                <p><span class="score-badge s-yn">Ethics (Person)</span> Does something in this student's personal statements lead you to question their ethics? Do you feel you can't quite trust their instincts? If you have any question about this please first ask your fellow team members for insight, and if it still seems unclear ask team MCN.</p>
-                <p><span class="score-badge s-yn">Ethics (Project)</span> Does something about the project this student is working on seem unethical? Does it work with communities in a paternalistic way? If you have any question about this please first ask your fellow team members for insight, and if it still seems unclear ask team MCN or mark it as a maybe.</p>
-                <p><span class="score-badge s-yn">Political</span> Is the work this student is doing politically sensitive?</p>
-                <p><span class="score-badge s-yn">Unique Project</span> Is this applicant's project a very unique, extraordinary. and outstanding for MCN to take note of?</p>
-                <p><span class="score-badge s-yn">Unique Emotion</span> Is this applicant's emotional investment responses a very unique, extraordinary, and outstanding for MCN to take note of?</p>
-                <p><span class="score-badge s-yn">Tech for Impact</span> Is this candidate Using Tech for Impact? (e.g the use of Al, robotics, other emerging technologies, digital products like mobile apps, websites, software, hardware, devices, etc in advancing the SDGs or UNAI Principles)</p>
-                <p><span class="score-badge s-yn">Public Health</span> Is the candidate working on a public health project?</p>
-                <p><span class="score-badge s-yn">AI Gen</span> Overall, do the applicant's responses seem AI-generated?</p>
-                <p><span class="score-badge s-yn">Ethical Integrity</span> Overall, does the applicant show ethical integrity through their responses?</p>
+                <p><span class="score-badge">5</span> Highly Agree: Clear, compelling personal story explaining interest in social impact.</p>
+                <p><span class="score-badge">3</span> Unsure: Mentions experiences but link to motivation is undeveloped.</p>
+                <p><span class="score-badge">1</span> Disagree: No personal experiences or strictly resume-building focus.</p>
             </div>
         </div>
     </div>
@@ -640,72 +508,55 @@
 <div class="container" id="pdfContentArea">
     
     <div class="header">
-        <div class="logo-container">
-            <img src="logo.png.jpg" alt="MCN Logo" class="logo-img" id="officialLogo">
+        <div class="logo-wrapper">
+            <img src="logo.png.jpg" alt="MCN Logo" class="logo-img" onerror="this.style.display='none'; this.parentNode.innerText='Millennium Fellowship'; this.parentNode.style.fontWeight='800'; this.parentNode.style.color='#0056b3';">
         </div>
-        <h1 style="margin:0; font-size: 38px; font-weight: 800; letter-spacing: -0.5px; word-spacing: 3px;">Admissions Reviewers Toolkit</h1>
-        <p style="margin:12px 0 0; opacity: 0.95; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; word-spacing: 2px; font-size: 14px; color: #bae6fd;">Developed By Akhyear Mushfiqur Rahman, Millennium Fellow'25 & GAC'26</p>
+        <h1>Admissions Review Toolkit</h1>
+        <p>Developed By Akhyear Mushfiqur Rahman • GAC'26</p>
     </div>
 
     <div class="setup-grid" id="setupGrid">
         <div class="field-group">
-            <label>Applicant's Responses Datasheet Link</label>
+            <label>Master Datasheet Link</label>
             <input type="text" id="sheetLink" placeholder="Paste your Google Sheet link here...">
         </div>
         <div class="field-group">
-            <label>Candidate Row No.</label>
-            <input type="number" id="rowNum" value="2">
+            <label>Row No.</label>
+            <input type="number" id="rowNum" value="2" min="2">
         </div>
         <button class="btn-primary" onclick="loadData()">Fetch Profile</button>
-        <button class="btn-download-draft" onclick="downloadDraftCSV()" id="btnDownload">Draft CSV sheet</button>
+        <button class="btn-download-draft" onclick="downloadDraftCSV()">Draft CSV</button>
     </div>
 
     <div id="displayArea">
         <div class="empty-state">
             <span class="joyful-emoji">✨</span>
-            <h3>Ready to Discover a Changemaker!</h3>
-            <p style="margin-bottom: 35px;">Start your evaluation session by following the guide below.</p>
-            
-            <div class="onboarding-grid">
-                <div class="onboard-card">
-                    <h4>🚀 Why this toolkit?</h4>
-                    <ul>
-                        <li><strong>Everything in One Place:</strong> The Official Rubric, AI Policy, and Applicant Essays are all on a single screen to prevent distractions.</li>
-                        <li><strong>Easy to Read:</strong> Clean text, organized layouts, and smooth scrolling help reduce eye strain during long evaluation sessions.</li>
-                        <li><strong>Saves You Time:</strong> Automatic formatting and a built-in memory vault ensure you never lose a score and can copy data instantly.</li>
-                    </ul>
-                </div>
-                <div class="onboard-card">
-                    <h4>🛠️ How to use?</h4>
-                    <ol>
-                        <li><strong>Paste & Fetch:</strong> Put your Master Sheet link in the top bar and select the row number you want to evaluate.</li>
-                        <li><strong>Check the Rules:</strong> Use the side buttons to slide out the AI Policy and Official Rubric whenever you need them.</li>
-                        <li><strong>Score the Applicant:</strong> Read the profile and fill out the 28-point assessment board at the bottom.</li>
-                        <li><strong>Save your Draft:</strong> Click <em>Copy Scores to Clipboard</em> to paste into a personal draft sheet, or use <em>Draft CSV Sheet</em> to download a backup before you manually select the options in the official form.</li>
-                    </ol>
-                </div>
-            </div>
+            <h3>Ready for the next changemaker.</h3>
+            <p>Paste the master sheet link above and fetch a row to begin your distraction-free evaluation session.</p>
         </div>
     </div>
 
     <div class="auth-suite" id="authSuite">
         <div class="auth-text">
             <h3>Authenticity Check</h3>
-            <p>Instantly copy this application and open the QuillBot AI Detector.</p>
+            <p>Instantly copy this application to check for AI usage.</p>
         </div>
-        <button class="btn-auth" id="btnQuillbot" onclick="checkAuthenticity()">Check with QuillBot &#8599;</button>
+        <button class="btn-auth" id="btnQuillbot" onclick="checkAuthenticity()">Open QuillBot ↗</button>
     </div>
 
     <div class="nav-buttons" id="navButtons">
-        <button class="nav-btn" onclick="changeRow(-1)">&#8592; Previous</button>
-        <button class="nav-btn" onclick="changeRow(1)">Next &#8594;</button>
+        <button class="nav-btn" onclick="changeRow(-1)">← Previous Applicant</button>
+        <button class="nav-btn" onclick="changeRow(1)">Next Applicant →</button>
     </div>
 
     <div class="eval-board" id="evalBoard">
         <div class="progress-sticky" id="progressSticky">
             <div class="progress-header">
                 <h3 class="progress-title">Draft Assessment Board</h3>
-                <div class="progress-count"><span id="completedCount">0</span> / 28 Completed</div>
+                <div class="sticky-actions">
+                    <button class="btn-clear" onclick="clearBoard()">Clear All</button>
+                    <div class="progress-count"><span id="completedCount">0</span> / 28</div>
+                </div>
             </div>
             <div class="progress-track">
                 <div class="progress-fill" id="progressFill"></div>
@@ -715,40 +566,31 @@
         <div id="evalContainer"></div>
         
         <button class="btn-copy" onclick="copyScores()" id="btnCopyEval">Copy Scores to Clipboard</button>
-        <button class="btn-draft" onclick="saveToDraft()" id="btnDraft">Export to Draft Sheet</button>
+        <button class="btn-draft" onclick="saveToDraft()" id="btnDraft">Export to Draft Memory</button>
         <button class="btn-pdf" onclick="saveAsPDF()" id="btnPdf">Save Profile as PDF</button>
 
-        <div id="syncCenter" style="margin-top: 50px; padding-top: 40px; border-top: 3px dashed var(--border-light);">
-            <h4 style="color: var(--heading-color); font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0; display: flex; align-items: center; gap: 10px;">
-                ⚡ Automated Sheet Sync
-            </h4>
-            <p style="font-size: 15px; color: var(--text-muted); line-height: 1.8; margin-bottom: 25px; font-weight: 500;">
-                Paste your Google Apps Script Web App URL below to magically push all your drafted scores directly into your official spreadsheet in one click.
+        <div id="syncCenter" style="margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--border-light);">
+            <h4 style="color: var(--text-heading); font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-top: 0;">Automated Sheet Sync</h4>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">
+                Paste your Google Apps Script Web App URL below to magically push your drafted scores directly into the blank dropdowns of your official sheet.
             </p>
-            
-            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                <input type="text" id="webhookUrl" placeholder="Paste your script URL ending in /exec..." style="flex: 1; min-width: 250px;">
-                <button class="btn-primary" id="btnSync" onclick="syncToGoogleSheet()" style="background: linear-gradient(135deg, var(--mcn-blue-brand), #5b21b6); width: auto; padding: 18px 35px; font-size: 16px;">
-                    🚀 Push to Sheet
-                </button>
+            <div style="display: flex; gap: 15px;">
+                <input type="text" id="webhookUrl" placeholder="Script URL ending in /exec..." style="flex: 1;">
+                <button class="btn-primary" id="btnSync" onclick="syncToGoogleSheet()" style="width: auto; padding: 0 30px;">Push Data</button>
             </div>
         </div>
-
     </div>
 </div>
 
 <div class="elegant-footer">
     <div class="elegant-footer-disclaimer">
-        <strong style="font-size: 16px; display: block; margin-bottom: 8px;">⚠️ Disclaimer & Important Notice:</strong> 
-        This toolkit is an independent, personal project developed by an Economics major at the University of Dhaka and is not an officially mandated platform by the Millennium Campus Network. <br><br>
-        Please note that this tool cannot directly modify your official evaluation spreadsheet. It is designed solely to help you generate draft assessments efficiently in a distraction-free environment. You will still need to manually select your final evaluations from the dropdown menus in your actual assigned assessment sheet, using the draft you made here as a guide.
+        <strong>⚠️ Important Notice:</strong> This toolkit is an independent, non-modifiable reading interface developed by an MCN Fellow. It strictly functions as a "read-only" magnifying glass to reduce eye strain. It cannot alter the master database without explicit permission via a custom Apps Script webhook.
     </div>
-    
     <div class="about-developer">
         <h4>About the Developer</h4>
         <div class="elegant-footer-links">
-            <a href="https://bd.linkedin.com/in/akhyear-mushfiqur-rahman" target="_blank">🔗 LinkedIn</a>
-            <a href="https://www.millenniumfellows.org/fellow/2025/ud/akhyear-mushfiqur-rahman" target="_blank">🌍 Millennium Fellow Profile</a>
+            <a href="https://bd.linkedin.com/in/akhyear-mushfiqur-rahman" target="_blank">LinkedIn</a>
+            <a href="https://www.millenniumfellows.org/fellow/2025/ud/akhyear-mushfiqur-rahman" target="_blank">MCN Profile</a>
         </div>
     </div>
 </div>
@@ -768,10 +610,8 @@ function toggleTheme() {
     }
 }
 
-// Check saved theme on load
 window.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('mcn_theme');
-    if (savedTheme === 'dark') {
+    if (localStorage.getItem('mcn_theme') === 'dark') {
         document.body.setAttribute('data-theme', 'dark');
         document.getElementById('themeIcon').innerText = '☀️';
     }
@@ -814,16 +654,14 @@ const questions = [
 const evalIds = []; 
 for(let i=1; i<=28; i++) { evalIds.push('eval_' + i); }
 
-// RENDER QUESTIONS WITH PSYCHOLOGICAL CHUNKING
 const evalCont = document.getElementById('evalContainer');
 questions.forEach((q, i) => {
     const num = i + 1;
     let inputHtml = "";
     
-    // Cognitive Load Theory: Chunking into 5 clear sections
     if(num === 1) evalCont.innerHTML += `<div class="eval-category-title">Part 1: The Project & Impact</div>`;
     if(num === 8) evalCont.innerHTML += `<div class="eval-category-title">Part 2: Project Ethics</div>`;
-    if(num === 10) evalCont.innerHTML += `<div class="eval-category-title">Part 3: The Leader & MCN Values</div>`;
+    if(num === 10) evalCont.innerHTML += `<div class="eval-category-title">Part 3: The Leader & Values</div>`;
     if(num === 22) evalCont.innerHTML += `<div class="eval-category-title">Part 4: Authenticity & Integrity</div>`;
     if(num === 25) evalCont.innerHTML += `<div class="eval-category-title">Part 5: Final Verdict</div>`;
 
@@ -836,55 +674,64 @@ questions.forEach((q, i) => {
     } else if (num === 8 || num === 9 || num === 22 || num === 24) { 
         inputHtml = `<select id="eval_${num}" class="eval-input eval-tracker"><option value="">Select...</option><option value="Yes">Yes</option><option value="Maybe">Maybe</option><option value="No">No</option></select>`;
     } else if (num >= 27) { 
-        inputHtml = `<textarea id="eval_${num}" class="eval-textarea eval-tracker" placeholder="Enter details..."></textarea>`;
+        inputHtml = `<textarea id="eval_${num}" class="eval-textarea eval-tracker" placeholder="Type your notes here..."></textarea>`;
     } else { 
-        inputHtml = `<select id="eval_${num}" class="eval-input eval-tracker"><option value="">Score...</option><option value="5">5 - Highly Agree</option><option value="4">4 - Agree</option><option value="3">3 - Neutral</option><option value="2">2 - Disagree</option><option value="1">1 - Highly Disagree</option></select>`;
+        inputHtml = `<select id="eval_${num}" class="eval-input eval-tracker"><option value="">Select Score...</option><option value="5">5 - Highly Agree</option><option value="4">4 - Agree</option><option value="3">3 - Neutral</option><option value="2">2 - Disagree</option><option value="1">1 - Highly Disagree</option></select>`;
     }
 
     evalCont.innerHTML += `<div class="eval-row"><div class="eval-q-text">${num}. ${q}</div>${inputHtml}</div>`;
 });
 
-// PSYCHOLOGY UPGRADE: Hick's Law Color Coding & Zeigarnik Effect Progress Bar
-document.querySelectorAll('.eval-tracker').forEach(item => {
-    item.addEventListener('change', function() {
-        // Color coding
-        this.classList.remove('val-high', 'val-mid', 'val-low', 'val-done');
-        if (this.tagName === 'SELECT') {
-            if (this.value.startsWith('5') || this.value.startsWith('4') || this.value === '10' || this.value === '9' || this.value === '8' || this.value === 'Accept' || this.value === 'Option 4' || this.value === 'No') {
-                this.classList.add('val-high');
-            } else if (this.value.startsWith('3') || this.value === '7' || this.value === '6' || this.value === '5' || this.value === 'Waitlist' || this.value === 'Option 3' || this.value === 'Option 2' || this.value === 'Maybe') {
-                this.classList.add('val-mid');
-            } else if (this.value.startsWith('2') || this.value.startsWith('1') || this.value === '4' || this.value === '3' || this.value === '2' || this.value === '1' || this.value === 'Reject' || this.value === 'Option 1' || this.value === 'Yes') {
-                this.classList.add('val-low');
-            }
-        } else {
-            if(this.value.trim() !== "") this.classList.add('val-done');
-        }
-
-        // Progress Bar
-        let filled = 0;
-        document.querySelectorAll('.eval-tracker').forEach(el => {
-            if (el.value.trim() !== "") filled++;
-        });
-        document.getElementById('completedCount').innerText = filled;
-        document.getElementById('progressFill').style.width = (filled / 28 * 100) + '%';
+function updateProgress() {
+    let filled = 0;
+    document.querySelectorAll('.eval-tracker').forEach(el => {
+        if (el.value.trim() !== "") filled++;
     });
+    document.getElementById('completedCount').innerText = filled;
+    document.getElementById('progressFill').style.width = (filled / 28 * 100) + '%';
+}
+
+document.querySelectorAll('.eval-tracker').forEach(item => {
+    item.addEventListener('change', function() { updateProgress(); });
 });
+
+function clearBoard() {
+    document.querySelectorAll('.eval-tracker').forEach(el => el.value = "");
+    updateProgress();
+}
 
 function toggleRubric() { document.getElementById('rubricPanel').classList.toggle('open'); }
 function toggleAiPolicy() { document.getElementById('aiPanel').classList.toggle('open'); }
 
-// SENTENCE-CASE ENGINE
 function formatText(str) {
     if (!str) return "";
     const alphaStr = str.replace(/[^A-Za-z]/g, '');
     if (alphaStr.length > 0 && alphaStr === alphaStr.toUpperCase()) {
         let lower = str.toLowerCase();
-        return lower.replace(/(^\s*\w|[.!?]\s*\w)/g, function(c) {
-            return c.toUpperCase();
-        });
+        return lower.replace(/(^\s*\w|[.!?]\s*\w)/g, c => c.toUpperCase());
     }
     return str;
+}
+
+// REAL SHEET TITLE EXTRACTOR API
+async function fetchSheetTitle(url) {
+    try {
+        const baseUrlMatch = url.match(/(https:\/\/docs\.google\.com\/spreadsheets\/d\/[a-zA-Z0-9-_]+)/);
+        if (!baseUrlMatch) return "Unknown Database format";
+        
+        // Use a public proxy to bypass Google's HTML block
+        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(baseUrlMatch[1])}`;
+        const response = await fetch(proxyUrl);
+        const data = await response.json();
+        
+        const titleMatch = data.contents.match(/<title>(.*?)<\/title>/i);
+        if (titleMatch && titleMatch[1]) {
+            return titleMatch[1].replace(' - Google Sheets', '').trim();
+        }
+    } catch(e) { console.warn("Could not fetch title via proxy."); }
+    
+    // Fallback if the sheet is strictly private
+    return "Private Google Sheet";
 }
 
 function loadData() {
@@ -896,20 +743,16 @@ function loadData() {
     document.getElementById('authSuite').style.display = "none";
     document.getElementById('navButtons').style.display = "none";
     document.getElementById('evalBoard').style.display = "none";
-
-    // Reset Progress
-    document.getElementById('completedCount').innerText = 0;
-    document.getElementById('progressFill').style.width = '0%';
-    document.querySelectorAll('.eval-tracker').forEach(el => { el.value = ""; el.classList.remove('val-high', 'val-mid', 'val-low', 'val-done'); });
+    clearBoard();
 
     if (!link) {
-        output.innerHTML = "<div class='empty-state animated-entry' style='color:#ef4444;'><span class='joyful-emoji'>🔍</span><h3>Oops! Missing Link</h3><p>Please paste your master datasheet link first.</p></div>";
+        output.innerHTML = "<div class='empty-state animated-entry'><span class='joyful-emoji'>🔍</span><h3>Missing Link</h3><p>Please paste your master datasheet link first.</p></div>";
         return;
     }
 
     if (link.includes('/edit')) { link = link.split('/edit')[0] + '/export?format=csv'; }
 
-    output.innerHTML = "<div class='empty-state animated-entry'><span class='joyful-emoji'>🚀</span><h3>Fetching Records...</h3><p>Gathering the candidate's amazing journey right now.</p></div>";
+    output.innerHTML = "<div class='empty-state animated-entry'><span class='joyful-emoji'>🔄</span><h3>Fetching Records...</h3><p>Gathering candidate details securely.</p></div>";
 
     Papa.parse(link, {
         download: true,
@@ -919,29 +762,24 @@ function loadData() {
             const index = row - 2;
 
             if (index < 0 || index >= data.length) {
-                output.innerHTML = "<div class='empty-state animated-entry' style='color:#ef4444;'><span class='joyful-emoji'>🏁</span><h3>End of the Line!</h3><p>Candidate row does not exist. You might have finished the list!</p></div>";
+                output.innerHTML = "<div class='empty-state animated-entry'><span class='joyful-emoji'>🏁</span><h3>End of the Line!</h3><p>Candidate row does not exist or the row is completely empty.</p></div>";
                 document.getElementById('navButtons').style.display = "flex";
                 return;
             }
 
             const student = data[index];
             currentFullText = ""; 
-            
             const firstName = student["First Name"] || "Unknown";
             const lastName = student["Last Name"] || "Candidate";
             currentApplicantName = (firstName + "_" + lastName).trim();
 
-            // Extract the unique Sheet ID from the provided link to act as a title display
-            const sheetIdMatch = document.getElementById('sheetLink').value.match(/\/d\/([a-zA-Z0-9-_]+)/);
-            const sheetId = sheetIdMatch ? sheetIdMatch[1].substring(0, 16) + "..." : 'Unknown Sheet Code';
-
-            // Create the new beautiful connection badge and the main profile header
             let html = `
                 <div class='animated-entry'>
-                    <div class='sheet-status-badge' title='Connected Sheet ID: ${sheetIdMatch ? sheetIdMatch[1] : ""}'>
-                        <span class='live-dot'></span> Connected Database: ${sheetId}
+                    <div class='sheet-status-badge' title='Securely verified via proxy'>
+                        <span class='live-dot'></span> 
+                        <span>Connected: <span id='sheetTitleText' class='sheet-title-text'>Fetching name...</span></span>
                     </div>
-                    <h2 style='color:var(--heading-color); margin-bottom: 35px; font-weight: 800; font-size: 34px; letter-spacing: -0.5px; word-spacing: 3px;'>Applicant Profile</h2>
+                    <h2 style='color:var(--text-heading); margin-bottom: 30px; font-weight: 800; font-size: 28px;'>Applicant Profile</h2>
             `;
 
             for (const key in student) {
@@ -949,16 +787,11 @@ function loadData() {
                     let contentText = student[key];
                     const linkFinder = /(https?:\/\/[^\s]+)/g;
                     contentText = contentText.replace(linkFinder, '<a href="$1" target="_blank" title="Click to open link">$1</a>');
-                    
                     let formattedQuestion = formatText(key);
 
                     html += `<div class="impact-card">
-                                <div class="card-header">
-                                    <h4 class="card-label">${formattedQuestion}</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="card-value">${contentText}</div>
-                                </div>
+                                <div class="card-header"><h4 class="card-label">${formattedQuestion}</h4></div>
+                                <div class="card-body"><div class="card-value">${contentText}</div></div>
                              </div>`;
                     
                     currentFullText += key + ":\n" + student[key] + "\n\n";
@@ -967,14 +800,16 @@ function loadData() {
             html += "</div>";
             output.innerHTML = html;
             
+            // Trigger background title fetch
+            fetchSheetTitle(document.getElementById('sheetLink').value).then(title => {
+                const titleEl = document.getElementById('sheetTitleText');
+                if(titleEl) titleEl.innerText = title;
+            });
+
             document.getElementById('authSuite').style.display = "flex";
-            document.getElementById('authSuite').classList.add('animated-entry');
             document.getElementById('navButtons').style.display = "flex";
-            document.getElementById('navButtons').classList.add('animated-entry');
             document.getElementById('evalBoard').style.display = "block";
-            document.getElementById('evalBoard').classList.add('animated-entry');
-            
-            document.getElementById('btnQuillbot').innerText = "Check with QuillBot \u2197";
+            document.getElementById('btnQuillbot').innerText = "Open QuillBot ↗";
             document.getElementById('btnCopyEval').innerText = "Copy Scores to Clipboard";
         }
     });
@@ -983,18 +818,17 @@ function loadData() {
 function checkAuthenticity() {
     const btn = document.getElementById('btnQuillbot');
     navigator.clipboard.writeText(currentFullText).then(() => {
-        btn.innerText = "Text Copied! Opening QuillBot...";
+        btn.innerText = "Copied! Opening...";
         setTimeout(() => {
             window.open('https://quillbot.com/ai-content-detector', '_blank');
-            btn.innerText = "Check with QuillBot \u2197";
-        }, 1000);
+            btn.innerText = "Open QuillBot ↗";
+        }, 800);
     });
 }
 
 function changeRow(step) {
     const rowBox = document.getElementById('rowNum');
-    let currentRow = parseInt(rowBox.value);
-    let newRow = currentRow + step;
+    let newRow = parseInt(rowBox.value) + step;
     if (newRow < 2) newRow = 2;
     rowBox.value = newRow;
     loadData();
@@ -1003,66 +837,48 @@ function changeRow(step) {
 
 function copyScores() {
     const btn = document.getElementById('btnCopyEval');
-    
-    let values = evalIds.map(id => {
-        let val = document.getElementById(id).value;
-        return val.replace(/\n/g, " "); 
-    });
-    
-    const combinedAnswers = values.join("\t");
-    
-    navigator.clipboard.writeText(combinedAnswers).then(() => {
-        btn.innerText = "✓ Saved! Paste directly into your Sheet row";
+    let values = evalIds.map(id => document.getElementById(id).value.replace(/\n/g, " "));
+    navigator.clipboard.writeText(values.join("\t")).then(() => {
+        btn.innerText = "✓ Copied to Clipboard";
         btn.classList.add('btn-reward-anim');
         setTimeout(() => {
             btn.innerText = "Copy Scores to Clipboard";
             btn.classList.remove('btn-reward-anim');
-        }, 3000);
+        }, 2000);
     });
 }
 
 function saveToDraft() {
     const row = document.getElementById('rowNum').value;
     const btn = document.getElementById('btnDraft');
-
     let values = evalIds.map(id => document.getElementById(id).value.replace(/\n/g, " "));
     let drafts = JSON.parse(localStorage.getItem('mcn_eval_drafts')) || {};
-
     drafts[row] = { name: currentApplicantName, scores: values };
     localStorage.setItem('mcn_eval_drafts', JSON.stringify(drafts));
 
-    btn.innerText = "✓ Added to Draft Memory!";
+    btn.innerText = "✓ Saved to Memory";
     btn.classList.add('btn-reward-anim');
-    
     setTimeout(() => {
-        btn.innerText = "Export to Draft Sheet";
+        btn.innerText = "Export to Draft Memory";
         btn.classList.remove('btn-reward-anim');
-    }, 2500);
+    }, 2000);
 }
 
 function downloadDraftCSV() {
     let drafts = JSON.parse(localStorage.getItem('mcn_eval_drafts')) || {};
     let rows = Object.keys(drafts).sort((a, b) => parseInt(a) - parseInt(b));
+    if (rows.length === 0) return alert("Your memory is empty. Save an evaluation first.");
 
-    if (rows.length === 0) {
-        alert("You have not saved any drafts yet! Evaluate a student and click 'Export to Draft Sheet' first.");
-        return;
-    }
-
-    let headers = "Row Number,Applicant Name," + Array.from({length: 28}, (_, i) => `Q${i+1}`).join(",") + "\n";
-    let csvContent = headers;
-
+    let csvContent = "Row,Name," + Array.from({length: 28}, (_, i) => `Q${i+1}`).join(",") + "\n";
     rows.forEach(row => {
         let d = drafts[row];
-        let rowData = d.scores.map(v => `"${v}"`).join(",");
-        csvContent += `${row},"${d.name}",${rowData}\n`;
+        csvContent += `${row},"${d.name}",${d.scores.map(v => `"${v}"`).join(",")}\n`;
     });
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement("a");
-    const url = URL.createObjectURL(blob);
-    link.setAttribute("href", url);
-    link.setAttribute("download", "MCN_Evaluations_Draft.csv");
+    link.href = URL.createObjectURL(blob);
+    link.download = "GAC_Evaluations.csv";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -1070,126 +886,70 @@ function downloadDraftCSV() {
 
 function saveAsPDF() {
     const btnPdf = document.getElementById('btnPdf');
-    btnPdf.innerText = "Scanning Document... Please Wait";
+    btnPdf.innerText = "Scanning... Please Wait";
     
-    // Hide UI elements
     document.getElementById('setupGrid').style.display = 'none';
     document.getElementById('authSuite').style.display = 'none';
     document.getElementById('navButtons').style.display = 'none';
     document.getElementById('btnCopyEval').style.display = 'none';
     document.getElementById('btnDraft').style.display = 'none';
-    document.getElementById('btnRubricToggle').style.display = 'none';
-    document.getElementById('btnAiToggle').style.display = 'none';
-    document.getElementById('progressSticky').style.display = 'none';
     document.getElementById('btnThemeToggle').style.display = 'none';
     document.getElementById('syncCenter').style.display = 'none';
+    document.querySelector('.sticky-actions').style.display = 'none';
     btnPdf.style.display = 'none';
-
-    document.getElementById('rubricPanel').classList.remove('open');
-    document.getElementById('aiPanel').classList.remove('open');
 
     const element = document.getElementById('pdfContentArea');
     const originalBackground = element.style.background;
-    const originalBackdrop = element.style.backdropFilter;
-    const originalShadow = element.style.boxShadow;
-    const originalBorder = element.style.border;
-    
     element.style.background = '#ffffff'; 
-    element.style.backdropFilter = 'none'; 
-    element.style.boxShadow = 'none'; 
-    element.style.border = 'none';
 
-    const opt = {
-        margin:       0.3,
-        filename:     currentApplicantName + '_MCN_Evaluation.pdf',
-        image:        { type: 'jpeg', quality: 1.0 },
-        html2canvas:  { scale: 2, scrollY: 0, imageTimeout: 15000 },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
-
-    html2pdf().set(opt).from(element).save().then(() => {
-        // Restore styles and theme
+    html2pdf().set({
+        margin: 0.4, filename: currentApplicantName + '_Profile.pdf',
+        image: { type: 'jpeg', quality: 1.0 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    }).from(element).save().then(() => {
         element.style.background = originalBackground;
-        element.style.backdropFilter = originalBackdrop;
-        element.style.boxShadow = originalShadow;
-        element.style.border = originalBorder;
-
-        if (document.body.getAttribute('data-theme') === 'dark') {
-            document.body.setAttribute('data-theme', 'dark');
-        }
-
         document.getElementById('setupGrid').style.display = 'grid';
         document.getElementById('authSuite').style.display = 'flex';
         document.getElementById('navButtons').style.display = 'flex';
         document.getElementById('btnCopyEval').style.display = 'block';
         document.getElementById('btnDraft').style.display = 'block';
-        document.getElementById('btnRubricToggle').style.display = 'block';
-        document.getElementById('btnAiToggle').style.display = 'block';
-        document.getElementById('progressSticky').style.display = 'block';
         document.getElementById('btnThemeToggle').style.display = 'flex';
         document.getElementById('syncCenter').style.display = 'block';
+        document.querySelector('.sticky-actions').style.display = 'flex';
         btnPdf.style.display = 'block';
         btnPdf.innerText = "Save Profile as PDF";
     });
 }
 
-// THE UPDATED SHEET SYNC ENGINE
 async function syncToGoogleSheet() {
     const webhookUrl = document.getElementById('webhookUrl').value.trim();
     const btn = document.getElementById('btnSync');
-    
-    // Gather the saved drafts from the browser's memory
     let drafts = JSON.parse(localStorage.getItem('mcn_eval_drafts')) || {};
 
-    // Check if there is actually anything saved
-    if (Object.keys(drafts).length === 0) {
-        alert("Your draft memory is empty! Evaluate and save some applicants first.");
-        return;
-    }
+    if (Object.keys(drafts).length === 0) return alert("Draft memory empty!");
+    if (!webhookUrl) return alert("Paste your App Script URL.");
 
-    // Check if the tunnel link is pasted
-    if (!webhookUrl) {
-        alert("Please paste your Google Apps Script Web App URL first.");
-        return;
-    }
-
-    // Give a loading animation so you know it is working
-    btn.innerText = "⏳ Syncing... Please wait";
-    btn.style.opacity = "0.7";
+    btn.innerText = "Pushing..."; btn.style.opacity = "0.7";
 
     try {
-        // We use 'no-cors' here to safely bypass Google's strict security walls. 
-        // It drops the data off securely without getting blocked.
         await fetch(webhookUrl, {
-            method: 'POST',
-            mode: 'no-cors',
+            method: 'POST', mode: 'no-cors',
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify(drafts)
         });
 
-        // We celebrate and clear the memory
-        btn.innerText = "✅ Successfully Pushed!";
+        btn.innerText = "✓ Pushed!";
         btn.classList.add('btn-reward-anim');
-        
-        // Wipes the local drafts so you do not push the same ones twice
         localStorage.removeItem('mcn_eval_drafts');
         
         setTimeout(() => {
-            btn.innerText = "🚀 Push to Sheet";
-            btn.style.opacity = "1";
+            btn.innerText = "Push Data"; btn.style.opacity = "1";
             btn.classList.remove('btn-reward-anim');
-        }, 4000);
-
-    } catch (error) {
-        // If the internet drops or the link is bad
-        btn.innerText = "❌ Sync Failed. Try Again.";
-        btn.style.background = "linear-gradient(135deg, var(--danger-red), #b91c1c)";
-        
-        setTimeout(() => {
-            btn.innerText = "🚀 Push to Sheet";
-            btn.style.background = "linear-gradient(135deg, var(--mcn-blue-brand), #5b21b6)";
-            btn.style.opacity = "1";
-        }, 4000);
+        }, 3000);
+    } catch (e) {
+        btn.innerText = "❌ Failed";
+        setTimeout(() => { btn.innerText = "Push Data"; btn.style.opacity = "1"; }, 3000);
     }
 }
 </script>
