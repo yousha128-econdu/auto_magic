@@ -18,18 +18,16 @@
     
     <style>
         /* =========================================
-           DYNAMIC THEME VARIABLES (YOUR FUN UI)
+           DYNAMIC THEME VARIABLES (SMOOTH UI)
            ========================================= */
         :root {
-            /* BRAND COLORS */
+            /* BRAND COLORS (Never Change) */
             --mcn-navy-brand: #0A2342;
             --mcn-blue-brand: #0056b3;
-            --quillbot-green: #49c35a;      
-            --quillbot-green-hover: #3da34a; 
+            --quillbot-green: #49c35a;      /* QUILLBOT GREEN */
+            --quillbot-green-hover: #3da34a; /* QUILLBOT HOVER */
             --success-green-brand: #059669;
             --joyful-orange-brand: #f59e0b;
-            --danger-red: #ef4444;
-            --auth-purple-brand: #8b5cf6;
 
             /* LIGHT THEME (Default) */
             --bg-gradient-start: #f1f5f9;
@@ -68,14 +66,14 @@
             --drawer-shadow-left: 15px 0 40px rgba(0, 0, 0, 0.08);
         }
 
-        /* DARK THEME OVERRIDES (FIXED TO REMOVE WHITE BLOCKS) */
+        /* DARK THEME OVERRIDES */
         [data-theme="dark"] {
             --bg-gradient-start: #0f172a;
             --bg-gradient-end: #020617;
             --header-bg-start: #0f172a;
             --header-bg-end: #1e293b;
             
-            --white: #1e293b; /* This fixes the white containers */
+            --white: #1e293b;
             --text-dark: #f8fafc;
             --text-muted: #cbd5e1;
             --heading-color: #bae6fd;
@@ -107,18 +105,11 @@
         }
 
         /* GLOBALS & SMOOTH TRANSITIONS */
-        html, body {
-            min-height: 100vh;
-            margin: 0;
-            background-color: var(--bg-gradient-start); /* Fixed background */
-            background-image: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
-            background-attachment: fixed;
-        }
-
         body {
             font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-            padding: 50px 20px;
-            color: var(--text-dark); position: relative; overflow-x: hidden;
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            margin: 0; padding: 50px 20px;
+            color: var(--text-dark); min-height: 100vh; position: relative; overflow-x: hidden;
             -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
             letter-spacing: 0.5px; word-spacing: 2.5px; line-height: 1.8;
             transition: background 0.4s ease, color 0.4s ease;
@@ -126,8 +117,8 @@
 
         /* Force smooth transitions on containers */
         .container, .header, .setup-grid, .impact-card, .card-header, .card-body, .eval-board, .eval-row, 
-        input, select, textarea, .rubric-panel, .ai-panel, .auth-suite, .about-developer, .rubric-rule, 
-        .ai-table th, .ai-table td, .progress-sticky, .logo-container {
+        input, select, textarea, .rubric-panel, .ai-panel, .sdg-panel, .auth-suite, .about-developer, .rubric-rule, 
+        .ai-table th, .ai-table td, .progress-sticky {
             transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
         }
 
@@ -152,13 +143,9 @@
         
         .header { background: linear-gradient(135deg, var(--header-bg-start) 0%, var(--header-bg-end) 100%); padding: 55px 20px; text-align: center; color: #ffffff; border-bottom: 6px solid #38bdf8; border-radius: 32px 32px 0 0; position: relative; overflow: hidden; }
         .header::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(56,189,248,0.15) 0%, transparent 60%); pointer-events: none; }
-        
-        /* Fixed logo container for dark mode */
         .logo-container { background: #ffffff; padding: 22px 45px; display: inline-block; border-radius: 24px; box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.2); margin-bottom: 25px; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 2; }
-        [data-theme="dark"] .logo-container { background: #cbd5e1; } /* Slightly dimmed white in dark mode so it isn't blinding */
         .logo-container:hover { transform: translateY(-5px) scale(1.02); }
-        .logo-img { max-width: 250px; height: auto; display: block; mix-blend-mode: multiply; }
-        
+        .logo-img { max-width: 250px; height: auto; display: block; }
         .header h1 { margin: 0; font-size: 38px; font-weight: 800; letter-spacing: -0.5px; position: relative; z-index: 2; word-spacing: 3px; color: #ffffff; }
         .header p { margin: 12px 0 0; opacity: 0.9; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 13px; color: #bae6fd; position: relative; z-index: 2; word-spacing: 3px; }
 
@@ -170,29 +157,13 @@
         .btn-primary { background: linear-gradient(135deg, var(--mcn-blue-brand), #2563eb); color: #ffffff; border: none; padding: 18px; border-radius: 16px; font-weight: 800; font-size: 15px; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1.5px; word-spacing: 3px; width: 100%; box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.3); font-family: inherit; }
         .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 25px -5px rgba(37, 99, 235, 0.4); }
 
-        .btn-download-draft { background: linear-gradient(135deg, #6366f1, var(--auth-purple-brand)); color: #ffffff; border: none; padding: 18px; border-radius: 16px; font-weight: 800; font-size: 15px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); text-transform: uppercase; letter-spacing: 1.5px; word-spacing: 3px; width: 100%; box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.3); font-family: inherit; }
-        .btn-download-draft:hover { transform: translateY(-3px); box-shadow: 0 15px 25px -5px rgba(99, 102, 241, 0.4); }
+        .btn-download-draft { background: linear-gradient(135deg, var(--quillbot-green), var(--quillbot-green-hover)); color: #ffffff; border: none; padding: 18px; border-radius: 16px; font-weight: 800; font-size: 15px; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1.5px; word-spacing: 3px; width: 100%; box-shadow: 0 10px 20px -5px rgba(73, 195, 90, 0.3); font-family: inherit; }
+        .btn-download-draft:hover { transform: translateY(-3px); box-shadow: 0 15px 25px -5px rgba(73, 195, 90, 0.4); }
 
         #displayArea { padding: 50px; }
 
         @keyframes gentleFadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .animated-entry { animation: gentleFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-
-        /* THE FUN TITLE BADGE */
-        .sheet-title-badge {
-            display: inline-block;
-            background: var(--badge-bg);
-            color: var(--accent-blue);
-            border: 2px solid var(--accent-blue);
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-weight: 800;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 25px;
-            box-shadow: var(--shadow-soft);
-        }
 
         .onboarding-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 45px; text-align: left; }
         .onboard-card { background: var(--white); padding: 40px; border-radius: 24px; border: 1px solid var(--border-light); box-shadow: var(--shadow-soft); transition: all 0.3s ease; position: relative; overflow: hidden; }
@@ -254,7 +225,7 @@
         
         .eval-input.val-high { border-color: var(--success-green-brand); background: var(--val-high-bg); color: var(--val-high-text); }
         .eval-input.val-mid { border-color: var(--joyful-orange-brand); background: var(--val-mid-bg); color: var(--val-mid-text); }
-        .eval-input.val-low { border-color: var(--danger-red); background: var(--val-low-bg); color: var(--val-low-text); }
+        .eval-input.val-low { border-color: var(--danger-red, #ef4444); background: var(--val-low-bg); color: var(--val-low-text); }
         .eval-input.val-done { border-color: var(--accent-blue); background: var(--val-done-bg); }
 
         .eval-textarea { width: 100%; height: 110px; padding: 15px 20px; border: 2px solid var(--border-light); border-radius: 12px; font-size: 15px; font-family: inherit; background: var(--white); transition: 0.3s; resize: vertical; line-height: 1.8; letter-spacing: 0.5px; word-spacing: 2.5px; color: var(--text-dark); }
@@ -270,7 +241,7 @@
         @keyframes successPulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); background: var(--success-green-brand); } 100% { transform: scale(1); } }
         .btn-reward-anim { animation: successPulse 0.5s ease; background: linear-gradient(135deg, var(--success-green-brand), #047857) !important; color: white !important; }
 
-        .btn-pdf { background: linear-gradient(135deg, var(--danger-red), #b91c1c); color: #ffffff; border: none; padding: 22px; border-radius: 16px; font-weight: 800; cursor: pointer; width: 100%; text-transform: uppercase; letter-spacing: 1.5px; word-spacing: 3px; margin-top: 15px; box-shadow: 0 10px 20px -5px rgba(239, 68, 68, 0.3); font-size: 16px; font-family: inherit; }
+        .btn-pdf { background: linear-gradient(135deg, #ef4444, #b91c1c); color: #ffffff; border: none; padding: 22px; border-radius: 16px; font-weight: 800; cursor: pointer; width: 100%; text-transform: uppercase; letter-spacing: 1.5px; word-spacing: 3px; margin-top: 15px; box-shadow: 0 10px 20px -5px rgba(239, 68, 68, 0.3); font-size: 16px; font-family: inherit; }
         .btn-pdf:hover { transform: translateY(-3px); box-shadow: 0 15px 25px -5px rgba(239, 68, 68, 0.4); }
 
         .empty-state { text-align: center; padding: 60px 20px 60px 20px; color: var(--text-muted); }
@@ -284,14 +255,23 @@
         .rubric-panel { position: fixed; top: 0; right: -750px; width: 700px; height: 100vh; background: var(--white); box-shadow: var(--drawer-shadow); z-index: 1001; transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1); overflow-y: auto; border-left: 1px solid var(--border-light); }
         .rubric-panel.open { right: 0; }
 
-        .btn-toggle-ai { position: fixed; left: -5px; top: 50%; transform: translateY(-50%); background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 18px 20px 18px 25px; border-radius: 0 20px 20px 0; border: none; font-weight: 800; font-size: 14px; cursor: pointer; box-shadow: 5px 5px 20px rgba(217, 119, 6, 0.25); z-index: 1000; transition: 0.3s ease; text-transform: uppercase; letter-spacing: 2px; word-spacing: 3px; writing-mode: vertical-rl; text-orientation: mixed; font-family: inherit; }
+        /* AI Policy Drawer Button */
+        .btn-toggle-ai { position: fixed; left: -5px; top: 40%; transform: translateY(-50%); background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 18px 20px 18px 25px; border-radius: 0 20px 20px 0; border: none; font-weight: 800; font-size: 14px; cursor: pointer; box-shadow: 5px 5px 20px rgba(217, 119, 6, 0.25); z-index: 1000; transition: 0.3s ease; text-transform: uppercase; letter-spacing: 2px; word-spacing: 3px; writing-mode: vertical-rl; text-orientation: mixed; font-family: inherit; }
         .btn-toggle-ai:hover { padding-left: 35px; background: #b45309; }
         .ai-panel { position: fixed; top: 0; left: -750px; width: 700px; height: 100vh; background: var(--white); box-shadow: var(--drawer-shadow-left); z-index: 1001; transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1); overflow-y: auto; border-right: 1px solid var(--border-light); }
         .ai-panel.open { left: 0; }
+        
+        /* NEW: SDG & UNAI Drawer Button */
+        .btn-toggle-sdg { position: fixed; left: -5px; top: 65%; transform: translateY(-50%); background: linear-gradient(135deg, #0ea5e9, #0284c7); color: white; padding: 18px 20px 18px 25px; border-radius: 0 20px 20px 0; border: none; font-weight: 800; font-size: 14px; cursor: pointer; box-shadow: 5px 5px 20px rgba(14, 165, 233, 0.25); z-index: 1000; transition: 0.3s ease; text-transform: uppercase; letter-spacing: 2px; word-spacing: 3px; writing-mode: vertical-rl; text-orientation: mixed; font-family: inherit; }
+        .btn-toggle-sdg:hover { padding-left: 35px; background: #0369a1; }
+        .sdg-panel { position: fixed; top: 0; left: -750px; width: 700px; height: 100vh; background: var(--white); box-shadow: var(--drawer-shadow-left); z-index: 1001; transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1); overflow-y: auto; border-right: 1px solid var(--border-light); }
+        .sdg-panel.open { left: 0; }
 
         .drawer-header { color: #ffffff; padding: 35px; position: sticky; top: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center; }
         .rubric-header { background: linear-gradient(135deg, var(--mcn-navy-brand), var(--mcn-blue-brand)); }
         .ai-header { background: linear-gradient(135deg, #d97706, #b45309); }
+        .sdg-header { background: linear-gradient(135deg, #0ea5e9, #0369a1); } /* New Header Color */
+        
         .drawer-header h2 { margin: 0; font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; word-spacing: 3px; line-height: 1.6; }
         .close-drawer { background: none; border: none; color: white; font-size: 32px; cursor: pointer; transition: 0.2s; padding: 0; line-height: 1; }
         .close-drawer:hover { color: #cbd5e1; transform: scale(1.1); }
@@ -314,7 +294,7 @@
         .s3 { background: #fbbf24; color: #78350f; } 
         .s2 { background: #f87171; color: #7f1d1d; } 
         .s1 { background: #dc2626; } 
-        .s-yn { background: var(--auth-purple-brand); } 
+        .s-yn { background: var(--mcn-blue-brand); } 
 
         .ai-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; margin-bottom: 20px; background: var(--white); border-radius: 12px; overflow: hidden; border: 1px solid var(--border-light); }
         .ai-table th { background: var(--table-th-bg); color: var(--table-th-text); text-align: left; padding: 15px; border-bottom: 1px solid var(--border-light); font-weight: 800; letter-spacing: 0.5px; word-spacing: 2.5px; }
@@ -514,6 +494,60 @@
     </div>
 </div>
 
+<button class="btn-toggle-sdg" onclick="toggleSdg()" id="btnSdgToggle">View SDGs & UNAI</button>
+<div class="sdg-panel" id="sdgPanel">
+    <div class="drawer-header sdg-header">
+        <h2>SDGs & UNAI Principles</h2>
+        <button class="close-drawer" onclick="toggleSdg()">×</button>
+    </div>
+    <div class="rubric-content">
+        
+        <div class="rubric-section">
+            <h4>The 17 Sustainable Development Goals</h4>
+            <div class="rubric-rule" style="background: var(--white); border-left-color: #0ea5e9;">
+                <ol style="font-size: 14px; line-height: 1.8; margin: 0; padding-left: 20px; color: var(--text-dark); font-weight: 500; letter-spacing: 0.5px; word-spacing: 2px;">
+                    <li><strong>No Poverty:</strong> End poverty in all its forms everywhere.</li>
+                    <li><strong>Zero Hunger:</strong> End hunger, achieve food security and improved nutrition and promote sustainable agriculture.</li>
+                    <li><strong>Good Health and Well-being:</strong> Ensure healthy lives and promote well-being for all at all ages.</li>
+                    <li><strong>Quality Education:</strong> Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all.</li>
+                    <li><strong>Gender Equality:</strong> Achieve gender equality and empower all women and girls.</li>
+                    <li><strong>Clean Water and Sanitation:</strong> Ensure availability and sustainable management of water and sanitation for all.</li>
+                    <li><strong>Affordable and Clean Energy:</strong> Ensure access to affordable, reliable, sustainable and modern energy for all.</li>
+                    <li><strong>Decent Work and Economic Growth:</strong> Promote sustained, inclusive and sustainable economic growth, full and productive employment and decent work for all.</li>
+                    <li><strong>Industry, Innovation and Infrastructure:</strong> Build resilient infrastructure, promote inclusive and sustainable industrialization and foster innovation.</li>
+                    <li><strong>Reduced Inequalities:</strong> Reduce inequality within and among countries.</li>
+                    <li><strong>Sustainable Cities and Communities:</strong> Make cities and human settlements inclusive, safe, resilient and sustainable.</li>
+                    <li><strong>Responsible Consumption and Production:</strong> Ensure sustainable consumption and production patterns.</li>
+                    <li><strong>Climate Action:</strong> Take urgent action to combat climate change and its impacts.</li>
+                    <li><strong>Life Below Water:</strong> Conserve and sustainably use the oceans, seas and marine resources for sustainable development.</li>
+                    <li><strong>Life on Land:</strong> Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss.</li>
+                    <li><strong>Peace, Justice and Strong Institutions:</strong> Promote peaceful and inclusive societies for sustainable development, provide access to justice for all and build effective, accountable and inclusive institutions at all levels.</li>
+                    <li><strong>Partnerships for the Goals:</strong> Strengthen the means of implementation and revitalize the Global Partnership for Sustainable Development.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="rubric-section" style="border-bottom: none;">
+            <h4>The 10 UNAI Principles</h4>
+            <div class="rubric-rule" style="background: var(--white); border-left-color: #0ea5e9;">
+                <ol style="font-size: 14px; line-height: 1.8; margin: 0; padding-left: 20px; color: var(--text-dark); font-weight: 500; letter-spacing: 0.5px; word-spacing: 2px;">
+                    <li><strong>Addressing Poverty:</strong> A commitment to addressing issues of poverty through education.</li>
+                    <li><strong>Capacity-building:</strong> A commitment to building capacity in higher education systems across the world.</li>
+                    <li><strong>Education for All:</strong> A commitment to educational opportunity for all people regardless of gender, race, religion or ethnicity.</li>
+                    <li><strong>Global Citizenship:</strong> A commitment to encouraging global citizenship through education.</li>
+                    <li><strong>Access to Higher Education:</strong> A commitment to the opportunity for every interested individual to acquire the skills and knowledge necessary for the pursuit of higher education.</li>
+                    <li><strong>Human Rights:</strong> A commitment to human rights, among them freedom of inquiry, opinion, and speech.</li>
+                    <li><strong>Intercultural Dialogue:</strong> A commitment to promoting intercultural dialogue and understanding, and the "unlearning" of intolerance, through education.</li>
+                    <li><strong>Peace and Conflict Resolution:</strong> A commitment to advancing peace and conflict resolution through education.</li>
+                    <li><strong>Sustainability:</strong> A commitment to promoting sustainability through education.</li>
+                    <li><strong>United Nations Charter:</strong> A commitment to the principles inherent in the United Nations Charter as values that education seeks to promote and help fulfill.</li>
+                </ol>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <button class="btn-toggle-rubric" onclick="toggleRubric()" id="btnRubricToggle">View Official Rubric</button>
 <div class="rubric-panel" id="rubricPanel">
     <div class="drawer-header rubric-header">
@@ -648,7 +682,7 @@
             <label>Candidate Row No.</label>
             <input type="number" id="rowNum" value="2">
         </div>
-        <button class="btn-primary" onclick="loadData()">Fetch Profile</button>
+        <button class="btn-primary" onclick="loadData()">Fetch</button>
         <button class="btn-download-draft" onclick="downloadDraftCSV()" id="btnDownload">Draft CSV sheet</button>
     </div>
 
@@ -709,23 +743,6 @@
         <button class="btn-copy" onclick="copyScores()" id="btnCopyEval">Copy Scores to Clipboard</button>
         <button class="btn-draft" onclick="saveToDraft()" id="btnDraft">Export to Draft Sheet</button>
         <button class="btn-pdf" onclick="saveAsPDF()" id="btnPdf">Save Profile as PDF</button>
-
-        <div id="syncCenter" style="margin-top: 50px; padding-top: 40px; border-top: 3px dashed var(--border-light);">
-            <h4 style="color: var(--heading-color); font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0; display: flex; align-items: center; gap: 10px;">
-                ⚡ Automated Sheet Sync
-            </h4>
-            <p style="font-size: 15px; color: var(--text-muted); line-height: 1.8; margin-bottom: 25px; font-weight: 500;">
-                Paste your Google Apps Script Web App URL below to magically push all your drafted scores directly into your official spreadsheet in one click.
-            </p>
-            
-            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                <input type="text" id="webhookUrl" placeholder="Paste your script URL ending in /exec..." style="flex: 1; min-width: 250px;">
-                <button class="btn-primary" id="btnSync" onclick="syncToGoogleSheet()" style="background: linear-gradient(135deg, var(--mcn-blue-brand), #5b21b6); width: auto; padding: 18px 35px; font-size: 16px;">
-                    🚀 Push to Sheet
-                </button>
-            </div>
-        </div>
-
     </div>
 </div>
 
@@ -865,6 +882,7 @@ document.querySelectorAll('.eval-tracker').forEach(item => {
 
 function toggleRubric() { document.getElementById('rubricPanel').classList.toggle('open'); }
 function toggleAiPolicy() { document.getElementById('aiPanel').classList.toggle('open'); }
+function toggleSdg() { document.getElementById('sdgPanel').classList.toggle('open'); } // NEW TOGGLE FUNCTION
 
 // SENTENCE-CASE ENGINE
 function formatText(str) {
@@ -877,25 +895,6 @@ function formatText(str) {
         });
     }
     return str;
-}
-
-// REAL SHEET TITLE EXTRACTOR MAGIC
-async function fetchSheetTitle(url) {
-    try {
-        const match = url.match(/\/d\/([a-zA-Z0-9-_]+)/);
-        if (!match) return "Unknown Database format";
-        
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent("https://docs.google.com/spreadsheets/d/" + match[1])}`;
-        const response = await fetch(proxyUrl);
-        const data = await response.json();
-        
-        const titleMatch = data.contents.match(/<title>(.*?)<\/title>/i);
-        if (titleMatch && titleMatch[1]) {
-            return titleMatch[1].replace(' - Google Sheets', '').trim();
-        }
-    } catch(e) { console.warn("Could not fetch title via proxy."); }
-    
-    return "Private Google Sheet";
 }
 
 function loadData() {
@@ -942,12 +941,7 @@ function loadData() {
             const lastName = student["Last Name"] || "Candidate";
             currentApplicantName = (firstName + "_" + lastName).trim();
 
-            let html = "<div class='animated-entry'>";
-            
-            // The beautiful fun badge for the Real Title
-            html += `<div class='sheet-title-badge' id='sheetTitleBadge'>🔄 Fetching Database Title...</div>`;
-            
-            html += "<h2 style='color:var(--heading-color); margin-bottom: 35px; font-weight: 800; font-size: 32px; letter-spacing: -0.5px; word-spacing: 3px;'>Applicant Profile</h2>";
+            let html = "<div class='animated-entry'><h2 style='color:var(--heading-color); margin-bottom: 35px; font-weight: 800; font-size: 32px; letter-spacing: -0.5px; word-spacing: 3px;'>Applicant Profile</h2>";
 
             for (const key in student) {
                 if (student[key] && student[key].trim() !== "") {
@@ -972,12 +966,6 @@ function loadData() {
             html += "</div>";
             output.innerHTML = html;
             
-            // Fetch and apply the real title behind the scenes!
-            fetchSheetTitle(document.getElementById('sheetLink').value).then(title => {
-                const badge = document.getElementById('sheetTitleBadge');
-                if(badge) badge.innerHTML = `📄 <strong>${title}</strong>`;
-            });
-
             document.getElementById('authSuite').style.display = "flex";
             document.getElementById('authSuite').classList.add('animated-entry');
             document.getElementById('navButtons').style.display = "flex";
@@ -1083,7 +1071,7 @@ function saveAsPDF() {
     const btnPdf = document.getElementById('btnPdf');
     btnPdf.innerText = "Scanning Document... Please Wait";
     
-    // Hide UI elements
+    // Hide UI elements before saving the PDF
     document.getElementById('setupGrid').style.display = 'none';
     document.getElementById('authSuite').style.display = 'none';
     document.getElementById('navButtons').style.display = 'none';
@@ -1091,13 +1079,14 @@ function saveAsPDF() {
     document.getElementById('btnDraft').style.display = 'none';
     document.getElementById('btnRubricToggle').style.display = 'none';
     document.getElementById('btnAiToggle').style.display = 'none';
+    document.getElementById('btnSdgToggle').style.display = 'none'; // Hide the new SDG button too
     document.getElementById('progressSticky').style.display = 'none';
     document.getElementById('btnThemeToggle').style.display = 'none';
-    document.getElementById('syncCenter').style.display = 'none';
     btnPdf.style.display = 'none';
 
     document.getElementById('rubricPanel').classList.remove('open');
     document.getElementById('aiPanel').classList.remove('open');
+    document.getElementById('sdgPanel').classList.remove('open'); // Close the SDG drawer too
 
     const element = document.getElementById('pdfContentArea');
     const originalBackground = element.style.background;
@@ -1119,7 +1108,7 @@ function saveAsPDF() {
     };
 
     html2pdf().set(opt).from(element).save().then(() => {
-        // Restore styles and theme
+        // Bring all the UI elements back
         element.style.background = originalBackground;
         element.style.backdropFilter = originalBackdrop;
         element.style.boxShadow = originalShadow;
@@ -1136,72 +1125,12 @@ function saveAsPDF() {
         document.getElementById('btnDraft').style.display = 'block';
         document.getElementById('btnRubricToggle').style.display = 'block';
         document.getElementById('btnAiToggle').style.display = 'block';
+        document.getElementById('btnSdgToggle').style.display = 'block'; // Bring back the SDG button
         document.getElementById('progressSticky').style.display = 'block';
         document.getElementById('btnThemeToggle').style.display = 'flex';
-        document.getElementById('syncCenter').style.display = 'block';
         btnPdf.style.display = 'block';
         btnPdf.innerText = "Save Profile as PDF";
     });
-}
-
-// THE UPDATED SHEET SYNC ENGINE
-async function syncToGoogleSheet() {
-    const webhookUrl = document.getElementById('webhookUrl').value.trim();
-    const btn = document.getElementById('btnSync');
-    
-    // Gather the saved drafts from the browser's memory
-    let drafts = JSON.parse(localStorage.getItem('mcn_eval_drafts')) || {};
-
-    // Check if there is actually anything saved
-    if (Object.keys(drafts).length === 0) {
-        alert("Your draft memory is empty! Evaluate and save some applicants first.");
-        return;
-    }
-
-    // Check if the tunnel link is pasted
-    if (!webhookUrl) {
-        alert("Please paste your Google Apps Script Web App URL first.");
-        return;
-    }
-
-    // Give a loading animation so you know it is working
-    btn.innerText = "⏳ Syncing... Please wait";
-    btn.style.opacity = "0.7";
-
-    try {
-        // We use 'no-cors' here to safely bypass Google's strict security walls. 
-        // It drops the data off securely without getting blocked.
-        await fetch(webhookUrl, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-            body: JSON.stringify(drafts)
-        });
-
-        // We celebrate and clear the memory
-        btn.innerText = "✅ Successfully Pushed!";
-        btn.classList.add('btn-reward-anim');
-        
-        // Wipes the local drafts so you do not push the same ones twice
-        localStorage.removeItem('mcn_eval_drafts');
-        
-        setTimeout(() => {
-            btn.innerText = "🚀 Push to Sheet";
-            btn.style.opacity = "1";
-            btn.classList.remove('btn-reward-anim');
-        }, 4000);
-
-    } catch (error) {
-        // If the internet drops or the link is bad
-        btn.innerText = "❌ Sync Failed. Try Again.";
-        btn.style.background = "linear-gradient(135deg, var(--danger-red), #b91c1c)";
-        
-        setTimeout(() => {
-            btn.innerText = "🚀 Push to Sheet";
-            btn.style.background = "linear-gradient(135deg, var(--mcn-blue-brand), #5b21b6)";
-            btn.style.opacity = "1";
-        }, 4000);
-    }
 }
 </script>
 
